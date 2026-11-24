@@ -798,18 +798,38 @@
     ];
 
     const DEFAULT_QUESTIONS = [
-      { id: 1, tema: "Ensino", texto: "Quais são as suas diretrizes prioritárias para modernizar os laboratórios didáticos e fortalecer o ensino técnico no CMC?", autor: "Comunidade Acadêmica (Docente)" },
-      { id: 2, tema: "Pesquisa", texto: "Como sua gestão apoiará e financiará os grupos de pesquisa e bolsas de iniciação científica e tecnológica no campus?", autor: "Comunidade Acadêmica (Docente)" },
-      { id: 3, tema: "Extensão e Extensão Tecnológica", texto: "Quais projetos de extensão comunitária e parcerias com o Polo Industrial de Manaus e o setor produtivo serão priorizados?", autor: "Comunidade Acadêmica (TAE)" },
-      { id: 4, tema: "Esporte e Lazer", texto: "Qual o planejamento da chapa para revitalizar os espaços poliesportivos e incentivar os Jogos do IFAM (JIF)?", autor: "Comunidade Acadêmica (Discente)" },
-      { id: 5, tema: "Gestão de Pessoas", texto: "Quais medidas práticas serão adotadas para promover capacitação continuada e valorização das carreiras de TAEs e Docentes?", autor: "Comunidade Acadêmica (TAE)" },
-      { id: 6, tema: "Infraestrutura e Planejamento", texto: "Como a gestão planeja sanar os problemas de climatização, acessibilidade e manutenção predial do campus?", autor: "Comunidade Acadêmica (Discente)" },
-      { id: 7, tema: "Assistência ao(à) Educando(a)", texto: "Quais as estratégias para ampliar e desburocratizar o acesso a auxílios estudantis, alimentação e apoio psicopedagógico?", autor: "Comunidade Acadêmica (Discente)" },
-      { id: 8, tema: "Inovação", texto: "De que forma o CMC apoiará incubadoras de empresas, patentes e o empreendedorismo inovador entre os estudantes?", autor: "Comunidade Acadêmica (Docente)" },
-      { id: 9, tema: "Gestão participativa", texto: "Como os segmentos docente, discente e técnico-administrativo terão voz ativa nas deliberações orçamentárias e decisões do campus?", autor: "Comunidade Acadêmica (TAE)" },
-      { id: 10, tema: "Saúde e qualidade de vida do(a) servidor(a)", texto: "Quais ações concretas serão implementadas para prevenção ao burnout e promoção da saúde mental no trabalho?", autor: "Comunidade Acadêmica (Servidor)" },
-      { id: 11, tema: "Equidade de gênero, racial, diversidade e enfrentamento à violência contra a mulher", texto: "Quais políticas afirmativas e de acolhimento efetivo às mulheres e minorias serão fortalecidas no campus?", autor: "Comunidade Acadêmica (Discente)" },
-      { id: 12, tema: "Assédio Moral e Sexual no trabalho", texto: "Qual a postura institucional e quais os canais seguros e independentes que serão garantidos para combate rigoroso a assédios no CMC?", autor: "Comunidade Acadêmica (Servidora)" }
+      { id: 1, tema: "Gestão de Pessoas", texto: "Qual será a política de investimentos da sua gestão para a capacitação continuada de docentes e TAEs, especialmente no apoio e concessão de licenças para qualificação em nível de Doutorado?", autor: "TAE" },
+      { id: 2, tema: "Ensino", texto: "Há planos em sua gestão para fomentar a área musical e artística no CMC, seja por meio de projetos de extensão como uma banda discente ou pelo estudo de novos cursos na área de música?", autor: "Estudante" },
+      { id: 3, tema: "Saúde e qualidade de vida do(a) servidor(a)", texto: "Quais são as propostas da sua gestão para ampliar o Programa de Gestão e Desempenho (PGD) e flexibilizar as jornadas de trabalho dos servidores, conciliando qualidade de vida e excelência no atendimento?", autor: "TAE" },
+      { id: 4, tema: "Inovação", texto: "Quais iniciativas concretas sua gestão adotará para incentivar projetos de inovação tecnológica criados por estudantes e garantir infraestrutura e recursos para que saiam do papel?", autor: "Estudante" },
+      { id: 5, tema: "Infraestrutura e Planejamento", texto: "Sendo o CMC um campus centenário, quais ações emergenciais e planejadas sua gestão adotará para modernizar a rede elétrica, prevenir riscos de incêndio e garantir acessibilidade a pessoas com mobilidade reduzida?", autor: "Estudante" },
+      { id: 6, tema: "Infraestrutura e Planejamento", texto: "Quais são as propostas da sua gestão para enfrentar os períodos de crise climática, calor extremo e fumaça no CMC, garantindo climatização adequada, saúde e bem-estar da comunidade?", autor: "Estudante" },
+      { id: 7, tema: "Pesquisa", texto: "Quais são as propostas concretas da sua candidatura para apoiar e fortalecer os programas de mestrado e doutorado do CMC em termos de infraestrutura, internacionalização e captação de recursos?", autor: "Docente" },
+      { id: 8, tema: "Saúde e qualidade de vida do(a) servidor(a)", texto: "Quais medidas práticas sua gestão pretende adotar para melhorar as condições de trabalho, prevenir o adoecimento profissional e promover a saúde física e mental dos servidores do CMC?", autor: "TAE" },
+      { id: 9, tema: "Infraestrutura e Planejamento", texto: "Quais serão as prioridades orçamentárias da sua gestão para a reforma, modernização e manutenção predial do CMC, especialmente quanto à climatização, acessibilidade e banheiros?", autor: "TAE" },
+      { id: 10, tema: "Gestão de Pessoas", texto: "Qual é o seu posicionamento sobre a expansão do teletrabalho e da jornada flexibilizada para os servidores técnico-administrativos, garantindo o bom atendimento à comunidade acadêmica?", autor: "TAE" },
+      { id: 11, tema: "Equidade de gênero, racial, diversidade e enfrentamento à violência contra a mulher", texto: "Como sua gestão pretende fortalecer as políticas de acolhimento e respeito à diversidade no campus, assegurando o uso do nome social, a prevenção de discriminações e a segurança de estudantes trans?", autor: "TAE" },
+      { id: 12, tema: "Ensino", texto: "Quais políticas pedagógicas e de acompanhamento que sua gestão pretende implementar para combater a evasão escolar e garantir a permanência e o êxito dos estudantes em vulnerabilidade socioeconômica?", autor: "TAE" },
+      { id: 13, tema: "Pesquisa", texto: "Quais iniciativas que sua gestão implementará para estimular novos projetos de pesquisa aplicada à realidade amazônica e ampliar o envolvimento conjunto de estudantes e servidores?", autor: "TAE" },
+      { id: 14, tema: "Pesquisa", texto: "Quais são as propostas da sua candidatura para estruturar e dar suporte administrativo às secretarias e coordenações de pós-graduação stricto sensu no CMC?", autor: "TAE" },
+      { id: 15, tema: "Gestão participativa", texto: "De que maneira sua gestão assegurará a participação ativa e transparente de docentes, TAEs e estudantes nas decisões orçamentárias e administrativas do campus?", autor: "TAE" },
+      { id: 16, tema: "Gestão participativa", texto: "Sua candidatura se compromete a publicar relatórios periódicos e indicadores de metas para que a comunidade acompanhe a execução do seu plano de gestão?", autor: "TAE" },
+      { id: 17, tema: "Gestão participativa", texto: "Diante das restrições orçamentárias, quais estratégias que sua gestão adotará para captar recursos extraorçamentários, emendas parlamentares e parcerias com o setor produtivo para o CMC?", autor: "TAE" },
+      { id: 18, tema: "Assédio Moral e Sexual no trabalho", texto: "Como sua gestão estruturará canais seguros e sigilosos de acolhimento e denúncia de assédio moral e sexual no CMC, garantindo proteção contra retaliações e o preparo das chefias diante de denúncias?", autor: "TAE" },
+      { id: 19, tema: "Infraestrutura e Planejamento", texto: "Qual é o plano da sua gestão para modernizar os recursos didáticos das salas de aula, instalando projetores e computadores fixos para evitar o transporte manual diário de equipamentos pelos professores?", autor: "Docente" },
+      { id: 20, tema: "Ensino", texto: "Qual é a sua posição sobre a reorganização da duração dos tempos de aula (ex: de 60 para 50 minutos) e como sua gestão conduziria esse debate pedagógico com a comunidade?", autor: "Docente" },
+      { id: 21, tema: "Saúde e qualidade de vida do(a) servidor(a)", texto: "Quais são as suas propostas para garantir e ampliar o atendimento médico, odontológico e de enfermagem aos alunos e servidores do turno noturno no CMC?", autor: "Docente" },
+      { id: 22, tema: "Assistência ao(à) Educando(a)", texto: "Considerando que muitos estudantes concluem as disciplinas mas não formam por falta de estágio obrigatório, quais parcerias com o Polo Industrial e empresas sua gestão firmará para ampliar vagas de estágio?", autor: "Docente" },
+      { id: 23, tema: "Pesquisa", texto: "Diante da obsolescência e saturação de espaço de laboratórios históricos do campus, quais investimentos e reformas prioritárias sua gestão planeja para modernizar esses ambientes?", autor: "Docente" },
+      { id: 24, tema: "Ensino", texto: "Diante da rápida evolução da inteligência artificial e novas tecnologias, quais ações sua gestão implementará para atualizar as práticas pedagógicas e o ensino tecnológico no CMC?", autor: "Docente" },
+      { id: 25, tema: "Pesquisa", texto: "Como sua gestão pretende ampliar a oferta de bolsas de iniciação científica e tecnológica (PIBIC/PIBITI) para contemplar um maior número de estudantes de cursos técnicos e graduações?", autor: "Docente" },
+      { id: 26, tema: "Extensão e Extensão Tecnológica", texto: "Quais projetos e investimentos em extensão e divulgação científica sua gestão priorizará para fortalecer a visibilidade e o impacto social do CMC na sociedade amazonense?", autor: "Docente" },
+      { id: 27, tema: "Gestão participativa", texto: "Quais ferramentas e práticas de gestão serão adotados para desburocratizar a comunicação interna entre coordenações, departamentos e a comunidade acadêmica?", autor: "Docente" },
+      { id: 28, tema: "Assistência ao(à) Educando(a)", texto: "Com o aumento de cursos em regime integral no campus, quais são as propostas da sua gestão para viabilizar alimentação subsidiada ou um R.U para os estudantes?", autor: "Estudante" },
+      { id: 29, tema: "Gestão de Pessoas", texto: "Quais são as propostas da sua candidatura para aperfeiçoar, desburocratizar e humanizar o sistema de registro de frequência (ponto eletrônico) dos servidores técnico-administrativos?", autor: "TAE" },
+      { id: 30, tema: "Infraestrutura e Planejamento", texto: "Qual é a proposta da sua gestão para implementar uma política efetiva de sustentabilidade e gestão de resíduos sólidos no CMC, incluindo coleta seletiva e destinação adequada?", autor: "Docente" },
+      { id: 31, tema: "Ensino", texto: "Quais são as propostas da sua gestão para apoiar as licenciaturas do CMC, especialmente quanto a laboratórios próprios, cotas em editais de pesquisa e financiamento para projetos nas escolas?", autor: "Estudante" },
+      { id: 32, tema: "Assédio Moral e Sexual no trabalho", texto: "Quais medidas a futura gestão adotará para combater perseguições, exposição indevida de servidores e garantir que divergências institucionais não firam a dignidade e reputação dos servidores no CMC?", autor: "Docente" }
     ];
 
     let questionsDb = [];
@@ -1406,7 +1426,7 @@
             <div class="question-display">
               <div class="q-theme">1º TEMA: ${temaSorteado.toUpperCase()} • 2º PERGUNTA Nº ${perg.id}</div>
               <div class="q-body">"${perg.texto}"</div>
-              <div class="q-author">Identificação: ${perg.autor}</div>
+              <div class="q-author">Origem: Segmento ${perg.autor}</div>
               <div style="margin-top: 10px; font-size: 1.15rem; font-weight: 800; color: var(--accent);">
                 🎯 4º CANDIDATURA SORTEADA PARA RESPONDER: ${candidatoSorteado} (3 minutos)
               </div>
@@ -1417,7 +1437,7 @@
           setTimerPreset(180, `Resposta: 3 minutos (${candidatoSorteado})`);
 
           document.getElementById('mediatorScript').innerHTML = `
-            Na Sala da DIREC, foi sorteado o tema <highlight>${temaSorteado}</highlight>, pergunta nº <highlight>${perg.id}</highlight>: <em>"${perg.texto}"</em>. E para responder em 3 minutos, foi sorteado(a) o(a) candidato(a) <highlight>${candidatoSorteado}</highlight>. A palavra é sua.
+            Na Sala da DIREC, foi sorteado o tema <highlight>${temaSorteado}</highlight>, pergunta nº <highlight>${perg.id}</highlight> (enviada pelo segmento <highlight>${perg.autor}</highlight>): <em>"${perg.texto}"</em>. E para responder em 3 minutos, foi sorteado(a) o(a) candidato(a) <highlight>${candidatoSorteado}</highlight>. A palavra é sua.
           `;
 
           if (perguntaNum < 6) {
@@ -1687,12 +1707,16 @@
     }
 
     // --- BANCO DE PERGUNTAS & MODAL ---
+    const QUESTIONS_VERSION = "2026-11-24-v3-real";
     function loadQuestions() {
+      const savedVersion = localStorage.getItem('cmc_debate_questions_ver');
       const saved = localStorage.getItem('cmc_debate_questions');
-      if (saved) {
+      if (saved && savedVersion === QUESTIONS_VERSION) {
         try { questionsDb = JSON.parse(saved); } catch(e) { questionsDb = [...DEFAULT_QUESTIONS]; }
       } else {
         questionsDb = [...DEFAULT_QUESTIONS];
+        localStorage.setItem('cmc_debate_questions', JSON.stringify(questionsDb));
+        localStorage.setItem('cmc_debate_questions_ver', QUESTIONS_VERSION);
       }
       document.getElementById('modalJsonInput').value = JSON.stringify(questionsDb, null, 2);
       document.getElementById('qCountBadge').innerText = questionsDb.length;
