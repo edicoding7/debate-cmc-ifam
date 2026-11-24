@@ -689,14 +689,14 @@
         <div>
           <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Candidaturas Concorrentes (Clique para focar manualmente):</div>
           <div class="candidates-pills">
-            <div class="cand-pill" id="pill-Taveira" onclick="setSpeakerManual('Prof. Alberto Taveira')">
-              <div class="cand-pill-name">Prof. Alberto Taveira</div>
+            <div class="cand-pill" id="pill-Taveira" onclick="setSpeakerManual('Taveira')">
+              <div class="cand-pill-name">Taveira</div>
             </div>
-            <div class="cand-pill" id="pill-Moreira" onclick="setSpeakerManual('Prof. Jurandy Moreira')">
-              <div class="cand-pill-name">Prof. Jurandy Moreira</div>
+            <div class="cand-pill" id="pill-Moreira" onclick="setSpeakerManual('Moreira')">
+              <div class="cand-pill-name">Moreira</div>
             </div>
-            <div class="cand-pill" id="pill-Miriam" onclick="setSpeakerManual('Profa. Miriam Cartonilho')">
-              <div class="cand-pill-name">Profa. Miriam Cartonilho</div>
+            <div class="cand-pill" id="pill-Miriam" onclick="setSpeakerManual('Profª. Miriam')">
+              <div class="cand-pill-name">Profª. Miriam</div>
             </div>
           </div>
         </div>
@@ -716,7 +716,7 @@
       <div class="script-box">
         <div class="script-tag">🎙️ ROTEIRO DO MEDIADOR (LEIA AO VIVO NA TRANSMISSÃO):</div>
         <div class="script-text" id="mediatorScript">
-          "Boa tarde à comunidade do Instituto Federal do Amazonas! Damos início agora ao <strong>Debate Eleitoral Oficial 2026</strong> para a Direção-Geral do <strong>Campus Manaus Centro</strong>. Concorrem ao pleito as candidaturas: <strong>Prof. Alberto Taveira</strong>, <strong>Prof. Jurandy Moreira</strong> e <strong>Profa. Miriam Cartonilho</strong>. Vamos iniciar o 1º Bloco com o sorteio da ordem de apresentação de cada chapa."
+          "Boa tarde à comunidade do Instituto Federal do Amazonas! Damos início agora ao <strong>Debate Eleitoral Oficial 2026</strong> para a Direção-Geral do <strong>Campus Manaus Centro</strong>. Concorrem ao pleito as candidaturas: <strong>Taveira</strong>, <strong>Moreira</strong> e <strong>Profª. Miriam</strong>. Vamos iniciar o 1º Bloco com o sorteio da ordem de apresentação de cada chapa."
         </div>
       </div>
 
@@ -777,9 +777,9 @@
   <script>
     // --- DADOS DOS CANDIDATOS ---
     const CANDIDATOS = [
-      "Prof. Alberto Taveira",
-      "Prof. Jurandy Moreira",
-      "Profa. Miriam Cartonilho"
+      "Taveira",
+      "Moreira",
+      "Profª. Miriam"
     ];
 
     const TEMAS_OFICIAIS = [
@@ -831,7 +831,7 @@
         presetLabel: "Abertura (Não cronometrado)",
         actionBtn: "🎲 Sortear Ordem do 1º Bloco",
         actionIcon: "🎲",
-        script: "Boa tarde à comunidade do Instituto Federal do Amazonas! Damos início agora ao <highlight>Debate Eleitoral Oficial 2026</highlight> para a Direção-Geral do <highlight>Campus Manaus Centro</highlight>. Concorrem ao pleito as candidaturas: Prof. Alberto Taveira, Prof. Jurandy Moreira e Profa. Miriam Cartonilho. Vamos iniciar com o sorteio da ordem de apresentação do 1º Bloco.",
+        script: "Boa tarde à comunidade do Instituto Federal do Amazonas! Damos início agora ao <highlight>Debate Eleitoral Oficial 2026</highlight> para a Direção-Geral do <highlight>Campus Manaus Centro</highlight>. Concorrem ao pleito as candidaturas: Taveira, Moreira e Profª. Miriam. Vamos iniciar com o sorteio da ordem de apresentação do 1º Bloco.",
         onExecute: () => runDrawB1()
       },
       // ETAPA 1: 1º BLOCO - APRESENTAÇÃO CANDIDATO 1
@@ -903,38 +903,38 @@
       {
         phase: "2º BLOCO • RODADA 1",
         title: "Confronto 1: Taveira pergunta para Moreira",
-        speaker: "Prof. Alberto Taveira",
+        speaker: "Taveira",
         role: "PERGUNTA (1m 30s)",
         timerSeconds: 90,
         presetLabel: "Pergunta: 1m30s",
         actionBtn: "Carregar Pergunta de Taveira (1m30s) ▶",
         actionIcon: "❓",
-        script: "<highlight>Prof. Alberto Taveira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Jurandy Moreira</highlight>.",
-        onExecute: () => autoLoadConfrontoStep("Prof. Alberto Taveira", "Prof. Jurandy Moreira")
+        script: "<highlight>Taveira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Moreira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Taveira", "Moreira")
       },
       {
         phase: "2º BLOCO • RODADA 1",
-        title: "Confronto 2: Moreira pergunta para Miriam",
-        speaker: "Prof. Jurandy Moreira",
+        title: "Confronto 2: Moreira pergunta para Profª. Miriam",
+        speaker: "Moreira",
         role: "PERGUNTA (1m 30s)",
         timerSeconds: 90,
         presetLabel: "Pergunta: 1m30s",
         actionBtn: "Carregar Pergunta de Moreira (1m30s) ▶",
         actionIcon: "❓",
-        script: "<highlight>Prof. Jurandy Moreira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para a candidata <highlight>Profa. Miriam Cartonilho</highlight>.",
-        onExecute: () => autoLoadConfrontoStep("Prof. Jurandy Moreira", "Profa. Miriam Cartonilho")
+        script: "<highlight>Moreira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para a candidata <highlight>Profª. Miriam</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Moreira", "Profª. Miriam")
       },
       {
         phase: "2º BLOCO • RODADA 1",
-        title: "Confronto 3: Miriam pergunta para Taveira",
-        speaker: "Profa. Miriam Cartonilho",
+        title: "Confronto 3: Profª. Miriam pergunta para Taveira",
+        speaker: "Profª. Miriam",
         role: "PERGUNTA (1m 30s)",
         timerSeconds: 90,
         presetLabel: "Pergunta: 1m30s",
-        actionBtn: "Carregar Pergunta de Miriam (1m30s) ▶",
+        actionBtn: "Carregar Pergunta de Profª. Miriam (1m30s) ▶",
         actionIcon: "❓",
-        script: "<highlight>Profa. Miriam Cartonilho</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Alberto Taveira</highlight>.",
-        onExecute: () => autoLoadConfrontoStep("Profa. Miriam Cartonilho", "Prof. Alberto Taveira")
+        script: "<highlight>Profª. Miriam</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Taveira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Profª. Miriam", "Taveira")
       },
       // ETAPA 9: INTERVALO ENTRE RODADAS DO BLOCO 2
       {
@@ -952,39 +952,39 @@
       // ETAPAS 10, 11, 12: OS 3 CONFRONTOS DA RODADA 2 (INVERTIDOS)
       {
         phase: "2º BLOCO • RODADA 2",
-        title: "Confronto 4: Taveira pergunta para Miriam",
-        speaker: "Prof. Alberto Taveira",
+        title: "Confronto 4: Taveira pergunta para Profª. Miriam",
+        speaker: "Taveira",
         role: "PERGUNTA (1m 30s)",
         timerSeconds: 90,
         presetLabel: "Pergunta: 1m30s",
         actionBtn: "Carregar Pergunta de Taveira (1m30s) ▶",
         actionIcon: "❓",
-        script: "Iniciamos a Rodada 2. <highlight>Prof. Alberto Taveira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para a candidata <highlight>Profa. Miriam Cartonilho</highlight>.",
-        onExecute: () => autoLoadConfrontoStep("Prof. Alberto Taveira", "Profa. Miriam Cartonilho")
+        script: "Iniciamos a Rodada 2. <highlight>Taveira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para a candidata <highlight>Profª. Miriam</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Taveira", "Profª. Miriam")
       },
       {
         phase: "2º BLOCO • RODADA 2",
-        title: "Confronto 5: Miriam pergunta para Moreira",
-        speaker: "Profa. Miriam Cartonilho",
+        title: "Confronto 5: Profª. Miriam pergunta para Moreira",
+        speaker: "Profª. Miriam",
         role: "PERGUNTA (1m 30s)",
         timerSeconds: 90,
         presetLabel: "Pergunta: 1m30s",
-        actionBtn: "Carregar Pergunta de Miriam (1m30s) ▶",
+        actionBtn: "Carregar Pergunta de Profª. Miriam (1m30s) ▶",
         actionIcon: "❓",
-        script: "<highlight>Profa. Miriam Cartonilho</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Jurandy Moreira</highlight>.",
-        onExecute: () => autoLoadConfrontoStep("Profa. Miriam Cartonilho", "Prof. Jurandy Moreira")
+        script: "<highlight>Profª. Miriam</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Moreira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Profª. Miriam", "Moreira")
       },
       {
         phase: "2º BLOCO • RODADA 2",
         title: "Confronto 6: Moreira pergunta para Taveira",
-        speaker: "Prof. Jurandy Moreira",
+        speaker: "Moreira",
         role: "PERGUNTA (1m 30s)",
         timerSeconds: 90,
         presetLabel: "Pergunta: 1m30s",
         actionBtn: "Carregar Pergunta de Moreira (1m30s) ▶",
         actionIcon: "❓",
-        script: "<highlight>Prof. Jurandy Moreira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Alberto Taveira</highlight>.",
-        onExecute: () => autoLoadConfrontoStep("Prof. Jurandy Moreira", "Prof. Alberto Taveira")
+        script: "<highlight>Moreira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Taveira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Moreira", "Taveira")
       },
       // ETAPA 13: INTERVALO PARA BLOCO 3
       {
@@ -1095,7 +1095,7 @@
         presetLabel: "Encerramento Oficial",
         actionBtn: "✔ Concluir Debate e Fechar Transmissão",
         actionIcon: "🏆",
-        script: "Declaramos oficialmente encerrado o <highlight>Debate Eleitoral 2026 para a Direção-Geral do Campus Manaus Centro</highlight>. Em nome da Comissão Eleitoral Local, agradecemos aos professores Alberto Taveira, Jurandy Moreira e à professora Miriam Cartonilho, suas equipes de assessoria e aos fiscais presentes na Sala da DIREC pela postura ética e de elevado nível democrático. Lembramos a todos que a <highlight>VOTAÇÃO ELETRÔNICA ocorrerá nos dias 26 e 27 de novembro pelo sistema Helios Voting</highlight>. Uma boa noite a todos e exerçam seu voto!",
+        script: "Declaramos oficialmente encerrado o <highlight>Debate Eleitoral 2026 para a Direção-Geral do Campus Manaus Centro</highlight>. Em nome da Comissão Eleitoral Local, agradecemos aos candidatos Taveira e Moreira e à candidata Profª. Miriam, suas equipes de assessoria e aos fiscais presentes na Sala da DIREC pela postura ética e de elevado nível democrático. Lembramos a todos que a <highlight>VOTAÇÃO ELETRÔNICA ocorrerá nos dias 26 e 27 de novembro pelo sistema Helios Voting</highlight>. Uma boa noite a todos e exerçam seu voto!",
         onExecute: () => soundFanfare()
       }
     ];
@@ -1270,7 +1270,7 @@
       `;
 
       // Atualiza botão de avanço
-      document.getElementById('btnNextLabel').innerText = `Avançar para Etapa 2 (1º: ${b1Ordem[0].split(' ')[1] || b1Ordem[0]}) ▶`;
+      document.getElementById('btnNextLabel').innerText = `Avançar para Etapa 2 (1º: ${b1Ordem[0]}) ▶`;
       document.getElementById('btnNextAction').onclick = () => {
         renderStep(1);
         document.getElementById('btnNextAction').onclick = () => executeCurrentStep();
@@ -1310,21 +1310,21 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 8px;">
             <div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px solid var(--gold);">
               <span style="font-size: 0.75rem; color: var(--gold); font-weight: 800;">1º CONFRONTO (6m45s)</span><br>
-              <strong style="color: #fff;">Alberto Taveira</strong> ➔ <strong style="color: #90caf9;">Jurandy Moreira</strong>
+              <strong style="color: #fff;">Taveira</strong> ➔ <strong style="color: #90caf9;">Moreira</strong>
             </div>
             <div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
               <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">2º CONFRONTO (6m45s)</span><br>
-              <strong style="color: #fff;">Jurandy Moreira</strong> ➔ <strong style="color: #a7f3d0;">Miriam Cartonilho</strong>
+              <strong style="color: #fff;">Moreira</strong> ➔ <strong style="color: #a7f3d0;">Profª. Miriam</strong>
             </div>
             <div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
               <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">3º CONFRONTO (6m45s)</span><br>
-              <strong style="color: #fff;">Miriam Cartonilho</strong> ➔ <strong style="color: #ffd54f;">Alberto Taveira</strong>
+              <strong style="color: #fff;">Profª. Miriam</strong> ➔ <strong style="color: #ffd54f;">Taveira</strong>
             </div>
           </div>
         `;
 
         document.getElementById('mediatorScript').innerHTML = `
-          Confrontos definidos para a <highlight>Rodada 1</highlight>: 1º Confronto: <highlight>Prof. Alberto Taveira pergunta para o Prof. Jurandy Moreira</highlight>; 2º Confronto: <highlight>Prof. Jurandy Moreira pergunta para a Profa. Miriam Cartonilho</highlight>; 3º Confronto: <highlight>Profa. Miriam Cartonilho pergunta para o Prof. Alberto Taveira</highlight>. Cada confronto dispõe de 6m45s (Pergunta 1m30s | Resposta 3m | Réplica 45s | Tréplica 1m30s).
+          Confrontos definidos para a <highlight>Rodada 1</highlight>: 1º Confronto: <highlight>Taveira pergunta para Moreira</highlight>; 2º Confronto: <highlight>Moreira pergunta para Profª. Miriam</highlight>; 3º Confronto: <highlight>Profª. Miriam pergunta para Taveira</highlight>. Cada confronto dispõe de 6m45s (Pergunta 1m30s | Resposta 3m | Réplica 45s | Tréplica 1m30s).
         `;
 
         document.getElementById('btnNextLabel').innerText = `Avançar para Confronto 1 (Taveira ➔ Moreira) ▶`;
@@ -1343,16 +1343,16 @@
         <div style="font-weight: 800; color: var(--gold); margin-bottom: 8px;">⚔️ Dinâmica Completa deste Confronto:</div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <button class="btn-quick" style="background: var(--primary); font-weight: 800;" onclick="switchConfrontoPhase('${perguntador}', 'Pergunta (1m30s)', 90)">
-            1. Pergunta: ${perguntador.split(' ')[1] || perguntador} (1m30s)
+            1. Pergunta: ${perguntador} (1m30s)
           </button>
           <button class="btn-quick" onclick="switchConfrontoPhase('${respondedor}', 'Resposta (3m)', 180)">
-            2. Resposta: ${respondedor.split(' ')[1] || respondedor} (3m)
+            2. Resposta: ${respondedor} (3m)
           </button>
           <button class="btn-quick" onclick="switchConfrontoPhase('${perguntador}', 'Réplica (45s)', 45)">
-            3. Réplica: ${perguntador.split(' ')[1] || perguntador} (45s)
+            3. Réplica: ${perguntador} (45s)
           </button>
           <button class="btn-quick" onclick="switchConfrontoPhase('${respondedor}', 'Tréplica (1m30s)', 90)">
-            4. Tréplica: ${respondedor.split(' ')[1] || respondedor} (1m30s)
+            4. Tréplica: ${respondedor} (1m30s)
           </button>
         </div>
       `;
@@ -1619,7 +1619,7 @@
     }
 
     function grantRightOfReply() {
-      const cand = prompt("Informe o nome do candidato que recebeu o Direito de Resposta (Art. 11):", "Prof. Alberto Taveira");
+      const cand = prompt("Informe o nome do candidato que recebeu o Direito de Resposta (Art. 11):", "Taveira");
       if (cand) {
         soundFanfare();
         setSpeakerManual(cand, "DIREITO DE RESPOSTA (Art. 11)", "Ofensa moral deferida pela CEL");
