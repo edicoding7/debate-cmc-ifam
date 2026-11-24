@@ -640,7 +640,8 @@
       <button class="btn-quick danger" onclick="technicalPause()" title="Pausa técnica de até 3 min para queda de conexão">
         ⏸ Pausa Técnica
       </button>
-      <button class="btn-quick" onclick="openQuestionsModal()">
+      <!-- Banco de perguntas oculto da visualização pública ao vivo (Acesso via tecla 'B') -->
+      <button class="btn-quick" id="btnQuestionsModal" onclick="openQuestionsModal()" style="display: none;">
         ⚙️ Banco de Perguntas (<span id="qCountBadge">12</span>)
       </button>
       <button class="btn-quick" onclick="toggleFullScreen()">
@@ -1776,6 +1777,11 @@
         else startTimer();
       } else if (e.key === 'r' || e.key === 'R') {
         resetTimer();
+      } else if (e.key === 'b' || e.key === 'B') {
+        // Atalho discreto para administradores abrirem/fecharem o banco de perguntas
+        const modal = document.getElementById('questionsModal');
+        if (modal.style.display === 'flex') closeQuestionsModal();
+        else openQuestionsModal();
       }
     });
 
