@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reunião de Alinhamento - Debate Eleitoral CMC 2026 (Alberto Taveira, Jurandy Moreira e Miriam Cartonilho)</title>
+  <style>
+    :root {
+      --primary: #1b5e20;
+      --primary-dark: #0a3619;
+      --accent: #f9a825;
+      --accent-light: #fff9c4;
+      --bg: #f4f6f8;
+      --card-bg: #ffffff;
+      --text: #263238;
+      --text-muted: #546e7a;
+      --danger: #c62828;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Top Bar */
+    header {
+      background: var(--primary-dark);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--accent);
+      z-index: 10;
+    }
+
+    .header-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .header-sub {
+      font-size: 0.85rem;
+      color: #c8e6c9;
+    }
+
+    .progress-container {
+      width: 160px;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 10%;
+      transition: width 0.3s ease;
+    }
+
+    /* Main Slide Stage */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .slide-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      height: 100%;
+      max-height: 620px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #e0e0e0;
+      padding: 36px 44px;
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .slide-wrapper.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typography */
+    .slide-tag {
+      display: inline-block;
+      background: #e8f5e9;
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      align-self: flex-start;
+      border: 1px solid #c8e6c9;
+    }
+
+    h1.slide-title {
+      font-size: 1.85rem;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Cards and Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: #fcfdfc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .card.highlight {
+      border-left: 5px solid var(--accent);
+      background: #fffde7;
+    }
+
+    .card.primary {
+      border-left: 5px solid var(--primary);
+      background: #f1f8e9;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 0.92rem;
+      color: #37474f;
+      line-height: 1.5;
+    }
+
+    .big-time {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 6px 0;
+    }
+
+    ul.bullet-list {
+      list-style: none;
+    }
+
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 26px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #37474f;
+    }
+
+    ul.bullet-list li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .confronto-box {
+      background: #ffffff;
+      border: 1px solid #c8e6c9;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .badge-cand {
+      background: var(--primary-dark);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    .alert-box {
+      background: #ffebee;
+      border-left: 5px solid var(--danger);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #b71c1c;
+    }
+
+    /* Cover Slide */
+    .cover-container {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .cover-badge {
+      background: var(--accent);
+      color: #1b5e20;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .cover-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .cover-sub {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .cover-candidates {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .cand-card {
+      background: #f1f8e9;
+      border: 2px solid var(--primary);
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary-dark);
+    }
+
+    .cover-info {
+      display: flex;
+      gap: 24px;
+      background: #f9fbe7;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: 1px solid #dce775;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #33691e;
+    }
+
+    /* Footer Controls */
+    footer {
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slide-counter {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    button.btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    button.btn:hover {
+      background: var(--primary-dark);
+    }
+
+    button.btn:disabled {
+      background: #b0bec5;
+      cursor: not-allowed;
+    }
+
+    button.btn-fullscreen {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid #cfd8dc;
+    }
+
+    button.btn-fullscreen:hover {
+      background: #eceff1;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div>
+      <div class="header-title">ELEIÇÕES IFAM 2026 • CAMPUS MANAUS CENTRO</div>
+      <div class="header-sub">Comissão Eleitoral Local (CEL/CMC) — Alinhamento Operacional do Debate</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 0.8rem; opacity: 0.8;">Progresso:</span>
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide Stage -->
+  <main>
+
+    <!-- SLIDE 1: CAPA COM OS 3 CANDIDATOS -->
+    <div class="slide-wrapper active" data-slide="1">
+      <div class="cover-container">
+        <div class="cover-badge">REUNIÃO TÉCNICA E OPERACIONAL</div>
+        <h1 class="cover-title">DEBATE ELEITORAL 2026</h1>
+        <div class="cover-sub">Consulta para Diretor(a)-Geral do Campus Manaus Centro (CMC)</div>
+        
+        <div class="cover-candidates">
+          <div class="cand-card">Prof. Alberto Taveira</div>
+          <div class="cand-card">Prof. Jurandy Moreira</div>
+          <div class="cand-card">Profa. Miriam Cartonilho</div>
+        </div>
+
+        <div class="cover-info">
+          <span>📅 Reunião: 23/11/2026 (19h)</span>
+          <span>🎥 Debate: 24/11/2026 (16h)</span>
+          <span>🏛️ CEL/CMC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: OBJETIVO E PRINCÍPIOS -->
+    <div class="slide-wrapper" data-slide="2">
+      <span class="slide-tag">Propósito e Princípios</span>
+      <h1 class="slide-title">Objetivo do Nosso Alinhamento</h1>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card primary">
+            <div class="card-title">⚖️ Isonomia e Simetria entre as 3 Chapas</div>
+            <div class="card-text">
+              Garantir que <strong>Alberto Taveira, Jurandy Moreira e Miriam Cartonilho</strong> disponham rigorosamente das mesmas condições de tempo, perguntas e exposição.
+            </div>
+          </div>
+          <div class="card primary">
+            <div class="card-title">🤝 Previsibilidade e Segurança Técnica</div>
+            <div class="card-text">
+              Esclarecer o formato 100% online, os papéis das assessorias e a atuação dos 3 fiscais presentes na Sala da DIREC do CMC.
+            </div>
+          </div>
+        </div>
+        <div class="card highlight" style="margin-top: 16px;">
+          <div class="card-title">📜 Fundamentação Normativa Soberana</div>
+          <div class="card-text">
+            O debate é regido estritamente pela <strong>Resolução nº 092/CONSUP/IFAM</strong> e pelo <strong>Anexo VIII</strong>. Todas as regras e tempos são objetivos e aplicados igualmente aos três concorrentes.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: O DEBATE DE AMANHÃ (HORÁRIOS E TOLERÂNCIAS) -->
+    <div class="slide-wrapper" data-slide="3">
+      <span class="slide-tag">Agenda e Pontualidade</span>
+      <h1 class="slide-title">Debate de Amanhã (24/11) — Horários e Acesso</h1>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">⏰ Horários Oficiais</div>
+            <ul class="bullet-list">
+              <li><strong>15h30 — Entrada Antecipada na Sala Virtual:</strong> Teste de áudio, vídeo, iluminação e cronômetro de tela com os 3 candidatos.</li>
+              <li><strong>16h00 — Início Pontual da Transmissão:</strong> Abertura oficial para toda a comunidade do CMC.</li>
+              <li><strong>Tolerância Máxima (Art. 6º):</strong> Até <strong>15 minutos</strong> (16h15). O retardatário só entra no bloco seguinte.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">💻 Formato e Duração Estimada</div>
+            <ul class="bullet-list">
+              <li><strong>Formato:</strong> 100% Online com transmissão pública ao vivo.</li>
+              <li><strong>Sorteios:</strong> Realizados presencialmente na Sala da DIREC do CMC.</li>
+              <li><strong>Duração Total Estimada:</strong> Cerca de <strong>1h45min a 1h50min</strong> com intervalos regulamentares de 3 minutos.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: EQUIPES, ASSESSORIA E FISCALIZAÇÃO -->
+    <div class="slide-wrapper" data-slide="4">
+      <span class="slide-tag">Estrutura de Apoio</span>
+      <h1 class="slide-title">Assessorias de Bancada e Fiscais de Sorteio</h1>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card primary">
+            <div class="card-title">👥 Assessoria de Bancada (Art. 2º)</div>
+            <ul class="bullet-list">
+              <li>Até <strong>2 pessoas</strong> credenciadas por chapa na sala virtual;</li>
+              <li>Recomendada a paridade de gênero na escolha;</li>
+              <li><strong>Regra estrita:</strong> Diálogo com o candidato <em>exclusivamente durante os intervalos</em> entre os blocos;</li>
+              <li>Canal oficial para formalizar pedidos de direito de resposta à CEL.</li>
+            </ul>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">🏛️ Fiscais na Sala da DIREC do CMC</div>
+            <ul class="bullet-list">
+              <li><strong>1 fiscal presencial</strong> de cada candidatura (Alberto Taveira, Jurandy Moreira e Miriam Cartonilho);</li>
+              <li>Presentes fisicamente na Sala da DIREC do Campus Manaus Centro;</li>
+              <li>Fiscalizam a abertura dos envelopes e a lisura de todos os sorteios de perguntas do Bloco 3 ao vivo.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: VISÃO GERAL DOS 4 BLOCOS COM 3 CANDIDATOS -->
+    <div class="slide-wrapper" data-slide="5">
+      <span class="slide-tag">Dinâmica Geral</span>
+      <h1 class="slide-title">Visão Geral dos 4 Blocos com 3 Candidatos</h1>
+      <div class="slide-body">
+        <div class="grid-4">
+          <div class="card">
+            <div class="card-title">1º BLOCO</div>
+            <div class="big-time">3 min / cad.</div>
+            <div class="card-text"><strong>Apresentação</strong><br>Ordem sorteada. Cada um dos 3 se apresenta (Total: ~10 min).</div>
+          </div>
+          <div class="card primary">
+            <div class="card-title">2º BLOCO</div>
+            <div class="big-time">6 Confrontos</div>
+            <div class="card-text"><strong>Confronto Direto</strong><br>2 rodadas completas. Todo mundo pergunta e responde a todos (~42 min).</div>
+          </div>
+          <div class="card">
+            <div class="card-title">3º BLOCO</div>
+            <div class="big-time">6 Perguntas</div>
+            <div class="card-text"><strong>Plenária do CMC</strong><br>2 rodadas na Sala da DIREC. Cada um responde a 2 perguntas de 3 min (~20 min).</div>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">4º BLOCO</div>
+            <div class="big-time">3 min / cad.</div>
+            <div class="card-text"><strong>Considerações</strong><br>Ordem sorteada. Mensagem final de 3 min por candidato (~10 min).</div>
+          </div>
+        </div>
+        <div style="margin-top: 14px; font-size: 0.88rem; color: var(--text-muted); text-align: center;">
+          * Intervalos regulamentares de até 3 minutos entre os blocos para consulta com assessores credenciados.
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: BLOCO 2 PRAGMÁTICO (RODADAS ENTRE OS 3) -->
+    <div class="slide-wrapper" data-slide="6">
+      <span class="slide-tag">Simulação Prática</span>
+      <h1 class="slide-title">2º Bloco: Dinâmica Triangular de Confronto Direto</h1>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div>
+            <div style="font-weight: 700; color: var(--primary); margin-bottom: 8px;">🔄 Rodada 1 (Exemplo Sorteado):</div>
+            <div class="confronto-box">
+              <span><strong>Taveira</strong> pergunta para <strong>Jurandy Moreira</strong></span>
+              <span class="badge-cand">6 min 45 s</span>
+            </div>
+            <div class="confronto-box">
+              <span><strong>Jurandy Moreira</strong> pergunta para <strong>Miriam Cartonilho</strong></span>
+              <span class="badge-cand">6 min 45 s</span>
+            </div>
+            <div class="confronto-box">
+              <span><strong>Miriam Cartonilho</strong> pergunta para <strong>Taveira</strong></span>
+              <span class="badge-cand">6 min 45 s</span>
+            </div>
+
+            <div style="font-weight: 700; color: var(--primary); margin: 10px 0 8px 0;">🔄 Rodada 2 (Novo Sorteio Invertendo):</div>
+            <div class="confronto-box">
+              <span><strong>Taveira</strong> pergunta para <strong>Miriam Cartonilho</strong></span>
+              <span class="badge-cand">6 min 45 s</span>
+            </div>
+            <div class="confronto-box">
+              <span><strong>Miriam Cartonilho</strong> pergunta para <strong>Jurandy Moreira</strong></span>
+              <span class="badge-cand">6 min 45 s</span>
+            </div>
+            <div class="confronto-box">
+              <span><strong>Jurandy Moreira</strong> pergunta para <strong>Taveira</strong></span>
+              <span class="badge-cand">6 min 45 s</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card">
+              <div class="card-title">⏱️ Tempos de cada Confronto</div>
+              <ul class="bullet-list" style="font-size: 0.9rem;">
+                <li><strong>Pergunta:</strong> 1 min e 30 s</li>
+                <li><strong>Resposta:</strong> 3 min</li>
+                <li><strong>Réplica:</strong> 45 s</li>
+                <li><strong>Tréplica:</strong> 1 min e 30 s</li>
+              </ul>
+            </div>
+            <div class="alert-box">
+              <strong>⚠️ Art. 9º - Pergunta x Propaganda:</strong><br>
+              O tempo da pergunta é exclusivo para interpelar o opositor. Fazer discurso próprio na pergunta acarreta <strong>perda de 30 segundos</strong> na fala seguinte.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: BLOCO 3 PRAGMÁTICO (SALA VIP E PERGUNTAS) -->
+    <div class="slide-wrapper" data-slide="7">
+      <span class="slide-tag">Simulação Prática</span>
+      <h1 class="slide-title">3º Bloco: Sorteio Quádruplo na Sala da DIREC</h1>
+      <div class="slide-body">
+        <div class="card primary" style="margin-bottom: 12px; padding: 12px 18px;">
+          <div class="card-title" style="margin-bottom: 4px;">🎲 Rito em 4 Passos na Presença dos Fiscais de Alberto Taveira, Jurandy Moreira e Miriam Cartonilho:</div>
+          <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 0.9rem; color: var(--primary-dark);">
+            <span>1️⃣ Sorteia TEMA</span> ➔
+            <span>2️⃣ Sorteia PERGUNTA</span> ➔
+            <span>3️⃣ Mediador lê na tela</span> ➔
+            <span>4️⃣ Sorteia CANDIDATO</span>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">🎬 Como funciona na prática (2 Rodadas):</div>
+            <div class="card-text" style="font-size: 0.88rem; line-height: 1.5;">
+              <strong>Rodada 1 (3 perguntas):</strong><br>
+              • Pergunta 1 ➔ Sorteia quem responde (ex: Miriam Cartonilho);<br>
+              • Pergunta 2 ➔ Sorteia entre os que faltam (ex: Taveira);<br>
+              • Pergunta 3 ➔ Responde quem restou (Jurandy Moreira).<br><br>
+              <strong>Rodada 2 (3 perguntas):</strong><br>
+              • Repete-se o processo para que todos respondam à sua 2ª pergunta.
+            </div>
+          </div>
+
+          <div class="card highlight">
+            <div class="card-title">⏱️ Regra de Resposta (Art. 23)</div>
+            <ul class="bullet-list" style="font-size: 0.88rem;">
+              <li>Cada candidatura responde a <strong>2 perguntas da comunidade</strong>;</li>
+              <li>Tempo: <strong>3 minutos diretos</strong> por resposta;</li>
+              <li><strong>Sem réplica e sem tréplica</strong> (fala individual direta).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: CONTROLE DE TEMPO E DISCIPLINA -->
+    <div class="slide-wrapper" data-slide="8">
+      <span class="slide-tag">Controle e Urbanidade</span>
+      <h1 class="slide-title">Cronômetro, Disciplina e Direito de Resposta</h1>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">⏰ Cronômetro e Som (Art. 7º)</div>
+            <ul class="bullet-list">
+              <li>Cronômetro regressivo visível na tela de transmissão;</li>
+              <li>Aviso sonoro/verbal ao <strong>restar 1 minuto</strong>;</li>
+              <li><strong>Corte Sumário:</strong> Ao zerar o tempo, o microfone é imediatamente desligado para preservar a igualdade estrita entre os 3 candidatos.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">🛡️ Infrações e Resposta</div>
+            <ul class="bullet-list">
+              <li><strong>Falta Grave (Art. 8º):</strong> Ataques de cunho pessoal ou desrespeito = suspensão de <strong>45 segundos</strong> na próxima fala;</li>
+              <li><strong>Direito de Resposta (Art. 11):</strong> Ofensa moral ou ideológica evidente = <strong>3 minutos</strong> concedidos pela CEL após requerimento da assessoria.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: RECOMENDAÇÕES TÉCNICAS ONLINE -->
+    <div class="slide-wrapper" data-slide="9">
+      <span class="slide-tag">Ambiente Virtual</span>
+      <h1 class="slide-title">Recomendações Técnicas para os 3 Candidatos</h1>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">🎧 Equipamento e Ambiente</div>
+            <ul class="bullet-list">
+              <li>Uso obrigatório de <strong>fones de ouvido</strong> para eliminar eco e microfonia;</li>
+              <li>Câmera posicionada na altura dos olhos e iluminação frontal;</li>
+              <li>Manter o microfone no mudo enquanto outro estiver na palavra.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">🌐 Conexão e Quedas</div>
+            <ul class="bullet-list">
+              <li>Priorizar cabo de rede ou Wi-Fi exclusivo e estável;</li>
+              <li>Em caso de oscilação pontual de um candidato, a CEL fará breve pausa técnica de até 3 minutos para restabelecimento, sem prejuízo ao tempo regulamentar.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: DÚVIDAS E ENCERRAMENTO -->
+    <div class="slide-wrapper" data-slide="10">
+      <div class="cover-container">
+        <div class="cover-badge" style="background: var(--primary); color: white;">ESPAÇO ABERTO</div>
+        <h1 class="cover-title">Dúvidas das Candidaturas?</h1>
+        <div class="cover-sub">A palavra está aberta aos professores Taveira, Jurandy Moreira e professora Miriam Cartonilho e suas assessorias.</div>
+        
+        <div class="card highlight" style="max-width: 650px; text-align: left;">
+          <div class="card-title" style="justify-content: center;">📌 Combinado para Amanhã (24/11):</div>
+          <p style="text-align: center; font-size: 1.1rem; font-weight: bold; color: var(--primary-dark); line-height: 1.6;">
+            ⏰ 15h30 — Entrada na sala virtual para testes de som e imagem<br>
+            🏛️ 15h40 — Presença dos 3 fiscais na Sala da DIREC do CMC<br>
+            🎥 16h00 — Início pontual da transmissão ao vivo
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Controls Footer -->
+  <footer>
+    <div class="slide-counter" id="slideCounter">Slide 1 de 10</div>
+    <div class="btn-group">
+      <button class="btn btn-fullscreen" onclick="toggleFullScreen()">⛶ Tela Cheia</button>
+      <button class="btn" id="btnPrev" onclick="changeSlide(-1)">◀ Anterior</button>
+      <button class="btn" id="btnNext" onclick="changeSlide(1)">Próximo ▶</button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+
+    function updateSlide() {
+      document.querySelectorAll('.slide-wrapper').forEach((el, index) => {
+        el.classList.toggle('active', index + 1 === currentSlide);
+      });
+      document.getElementById('slideCounter').innerText = `Slide ${currentSlide} de ${totalSlides}`;
+      document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+      document.getElementById('btnPrev').disabled = (currentSlide === 1);
+      document.getElementById('btnNext').innerText = (currentSlide === totalSlides) ? 'Concluir ✔' : 'Próximo ▶';
+    }
+
+    function changeSlide(direction) {
+      if (direction === 1 && currentSlide < totalSlides) {
+        currentSlide++;
+      } else if (direction === -1 && currentSlide > 1) {
+        currentSlide--;
+      }
+      updateSlide();
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        changeSlide(-1);
+      } else if (e.key === 'Home') {
+        currentSlide = 1; updateSlide();
+      } else if (e.key === 'End') {
+        currentSlide = totalSlides; updateSlide();
+      }
+    });
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    updateSlide();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Condução do Debate CMC 2026 • Painel Ao Vivo</title>
+  <style>
+    :root {
+      --bg-dark: #05160c;
+      --bg-panel: #0d2b19;
+      --primary: #1b5e20;
+      --primary-light: #2e7d32;
+      --gold: #f9a825;
+      --gold-light: #ffd54f;
+      --accent: #00e676;
+      --danger: #d32f2f;
+      --danger-light: #ff5252;
+      --text: #ffffff;
+      --text-muted: #b0bec5;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      user-select: none;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #0d381e 0%, #030f08 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Bar */
+    header {
+      background: rgba(3, 15, 8, 0.95);
+      border-bottom: 2px solid var(--gold);
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      z-index: 100;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .live-badge {
+      background: var(--danger);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      animation: pulse 1.5s infinite;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.97); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--gold-light);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-quick {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-quick:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .btn-quick.warn {
+      background: rgba(230, 81, 0, 0.4);
+      border-color: #ff9800;
+      color: var(--gold-light);
+    }
+
+    .btn-quick.danger {
+      background: rgba(183, 28, 28, 0.4);
+      border-color: var(--danger);
+      color: #ffcdd2;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 24px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      gap: 14px;
+    }
+
+    /* Top Grid: Cronômetro & Monitor da Palavra */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 1020px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Card do Cronômetro Broadcast */
+    .timer-card {
+      background: rgba(13, 43, 25, 0.85);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .timer-card.danger-state {
+      border-color: var(--danger);
+      background: rgba(60, 10, 10, 0.95);
+      box-shadow: 0 0 40px rgba(211, 47, 47, 0.6);
+    }
+
+    .timer-card.warning-state {
+      border-color: var(--gold);
+      background: rgba(60, 45, 5, 0.95);
+    }
+
+    .timer-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+
+    .timer-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      color: var(--gold);
+    }
+
+    .timer-display {
+      font-size: 6.2rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      font-family: 'Courier New', Courier, monospace;
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(255,255,255,0.3);
+      line-height: 1;
+      margin: 4px 0;
+    }
+
+    .timer-display.danger {
+      color: var(--danger-light);
+      text-shadow: 0 0 35px rgba(255, 82, 82, 0.9);
+      animation: blink 0.8s infinite;
+    }
+
+    .timer-display.warning {
+      color: var(--gold-light);
+      text-shadow: 0 0 25px rgba(249, 168, 37, 0.7);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .timer-alert-text {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--gold);
+      min-height: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .timer-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border);
+      color: white;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .timer-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .timer-btn.start {
+      background: var(--primary);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
+    }
+
+    .timer-btn.start:hover {
+      background: var(--primary-light);
+    }
+
+    .timer-btn.pause {
+      background: #e65100;
+      border-color: #ff9800;
+    }
+
+    .timer-btn.reset {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Card do Monitor de Fala */
+    .speaker-card {
+      background: rgba(13, 43, 25, 0.85);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(10px);
+    }
+
+    .speaker-header {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .speaker-main {
+      text-align: center;
+      padding: 6px 0;
+    }
+
+    .speaker-role {
+      font-size: 0.95rem;
+      color: var(--gold);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .speaker-name {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255,255,255,0.25);
+    }
+
+    .speaker-step {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .candidates-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .cand-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cand-pill:hover {
+      background: rgba(255,255,255,0.14);
+    }
+
+    .cand-pill.active {
+      background: rgba(46, 125, 50, 0.5);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+    }
+
+    .cand-pill-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    /* TELEPROMPTER & SCRIPT DO MEDIADOR (CORAÇÃO DA CONDUÇÃO) */
+    .conductor-card {
+      background: rgba(10, 35, 20, 0.95);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .conductor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 8px;
+    }
+
+    .step-badge {
+      background: var(--gold);
+      color: #071e11;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .phase-label {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* Área do Texto do Mediador (O que falar) */
+    .script-box {
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 5px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      position: relative;
+    }
+
+    .script-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .script-text {
+      font-size: 1.35rem;
+      line-height: 1.45;
+      color: #ffffff;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .script-text highlight {
+      color: var(--gold-light);
+      font-weight: 800;
+      background: rgba(249, 168, 37, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Ação Principal Gigante (Próximo Passo) */
+    .conductor-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-next-action {
+      flex: 1;
+      background: linear-gradient(135deg, var(--gold) 0%, #e65100 100%);
+      color: #05160c;
+      font-size: 1.3rem;
+      font-weight: 900;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      box-shadow: 0 6px 25px rgba(249, 168, 37, 0.4);
+    }
+
+    .btn-next-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(249, 168, 37, 0.6);
+    }
+
+    .btn-prev-action {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-prev-action:hover {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    /* Área Dinâmica de Sorteios / Pergunta em Destaque */
+    .stage-subpanel {
+      background: rgba(13, 43, 25, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bloco 3 Display de Pergunta */
+    .question-display {
+      background: rgba(0,0,0,0.5);
+      border-left: 6px solid var(--gold);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 8px;
+    }
+
+    .q-theme {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .q-body {
+      font-size: 1.25rem;
+      line-height: 1.45;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 6px 0;
+    }
+
+    .q-author {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Rodapé com Navegador de Blocos Direto */
+    footer {
+      background: rgba(3, 15, 8, 0.95);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .block-jump-bar {
+      display: flex;
+      gap: 6px;
+    }
+
+    .jump-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .jump-btn:hover {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    .jump-btn.active {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      background: rgba(249, 168, 37, 0.15);
+    }
+
+    /* Modal de Perguntas */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-box {
+      background: var(--bg-panel);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 800px;
+      padding: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .modal-textarea {
+      width: 100%;
+      height: 280px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      color: white;
+      font-family: monospace;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand-box">
+      <div class="live-badge">AO VIVO</div>
+      <div>
+        <div class="brand-title">SISTEMA OFICIAL DE CONDUÇÃO • DEBATE CMC 2026</div>
+        <div class="brand-sub">Comissão Eleitoral Local (CEL/CMC) — Sala da DIREC</div>
+      </div>
+    </div>
+
+    <!-- Ações Rápidas de Emergência -->
+    <div class="quick-actions">
+      <button class="btn-quick" onclick="resetFullDebate()" style="border-color: var(--gold); color: var(--gold-light); font-weight: 700;" title="Reiniciar todo o debate do início">
+        ↺ Reset Geral
+      </button>
+      <button class="btn-quick warn" onclick="applyPenalty30s()" title="Art. 9º - Perda de 30s se fizer propaganda na pergunta">
+        ⚠️ Aplicar Punição (-30s)
+      </button>
+      <button class="btn-quick" onclick="grantRightOfReply()" title="Art. 11 - Concede 3 min de direito de resposta por ofensa moral">
+        🛡️ Direito de Resposta (3m)
+      </button>
+      <button class="btn-quick danger" onclick="technicalPause()" title="Pausa técnica de até 3 min para queda de conexão">
+        ⏸ Pausa Técnica
+      </button>
+      <button class="btn-quick" onclick="openQuestionsModal()">
+        ⚙️ Banco de Perguntas (<span id="qCountBadge">12</span>)
+      </button>
+      <button class="btn-quick" onclick="toggleFullScreen()">
+        ⛶ Tela Cheia
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Stage -->
+  <main>
+
+    <!-- Top Grid: Cronômetro & Monitor da Palavra -->
+    <section class="hero-grid">
+      
+      <!-- Cronômetro Broadcast -->
+      <div class="timer-card" id="timerCard">
+        <div class="timer-header">
+          <span class="timer-label">CRONÔMETRO OFICIAL DE PALCO</span>
+          <span class="status-badge" id="timerStatusBadge">PRONTO</span>
+        </div>
+
+        <div class="timer-display" id="timerDisplay">03:00</div>
+        <div class="timer-alert-text" id="timerAlertText">TEMPO REGULAMENTAR</div>
+
+        <div class="timer-controls">
+          <button class="timer-btn start" id="btnStart" onclick="startTimer()">▶ Iniciar</button>
+          <button class="timer-btn pause" id="btnPause" onclick="pauseTimer()" disabled>⏸ Pausar</button>
+          <button class="timer-btn reset" onclick="resetTimer()">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <!-- Monitor da Vez da Palavra -->
+      <div class="speaker-card">
+        <div class="speaker-header">
+          <span>NA PALAVRA AGORA</span>
+          <span id="currentPhaseTag" style="color: var(--gold); font-weight: 700;">ABERTURA</span>
+        </div>
+
+        <div class="speaker-main">
+          <div class="speaker-role" id="speakerRole">MEDIAÇÃO DO EVENTO</div>
+          <div class="speaker-name" id="speakerName">Mesa da CEL / Mediação</div>
+          <div class="speaker-step" id="speakerDetail">Abertura e Boas-Vindas</div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Candidaturas Concorrentes (Clique para focar manualmente):</div>
+          <div class="candidates-pills">
+            <div class="cand-pill" id="pill-Taveira" onclick="setSpeakerManual('Prof. Alberto Taveira')">
+              <div class="cand-pill-name">Prof. Alberto Taveira</div>
+            </div>
+            <div class="cand-pill" id="pill-Moreira" onclick="setSpeakerManual('Prof. Jurandy Moreira')">
+              <div class="cand-pill-name">Prof. Jurandy Moreira</div>
+            </div>
+            <div class="cand-pill" id="pill-Miriam" onclick="setSpeakerManual('Profa. Miriam Cartonilho')">
+              <div class="cand-pill-name">Profa. Miriam Cartonilho</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ÁREA CENTRAL DO CONDUTOR / TELEPROMPTER INTUITIVO -->
+    <section class="conductor-card">
+      <div class="conductor-header">
+        <span class="step-badge" id="stepCounterBadge">ETAPA 1 DE 22</span>
+        <span class="phase-label" id="phaseTitle">Abertura Institucional do Debate</span>
+        <span style="font-size: 0.85rem; color: var(--gold-light);" id="timerPresetInfo">⏱️ Tempo da etapa: Não cronometrado</span>
+      </div>
+
+      <!-- Script do Mediador (O que falar agora) -->
+      <div class="script-box">
+        <div class="script-tag">🎙️ ROTEIRO DO MEDIADOR (LEIA AO VIVO NA TRANSMISSÃO):</div>
+        <div class="script-text" id="mediatorScript">
+          "Boa tarde à comunidade do Instituto Federal do Amazonas! Damos início agora ao <strong>Debate Eleitoral Oficial 2026</strong> para a Direção-Geral do <strong>Campus Manaus Centro</strong>. Concorrem ao pleito as candidaturas: <strong>Prof. Alberto Taveira</strong>, <strong>Prof. Jurandy Moreira</strong> e <strong>Profa. Miriam Cartonilho</strong>. Vamos iniciar o 1º Bloco com o sorteio da ordem de apresentação de cada chapa."
+        </div>
+      </div>
+
+      <!-- Subpainel Dinâmico de Sorteios ou Pergunta do Bloco 3 -->
+      <div class="stage-subpanel" id="subpanelArea">
+        <!-- Injetado dinamicamente -->
+      </div>
+
+      <!-- Botão Gigante de Execução da Próxima Ação -->
+      <div class="conductor-actions">
+        <button class="btn-prev-action" onclick="resetFullDebate()" style="background: rgba(183,28,28,0.25); border-color: var(--danger); color: #ffcdd2;" title="Reiniciar todo o debate do início">
+          ↺ Reset Geral
+        </button>
+        <button class="btn-prev-action" onclick="previousStep()" id="btnPrev">
+          ◀ Etapa Anterior
+        </button>
+        <button class="btn-next-action" onclick="executeCurrentStep()" id="btnNextAction">
+          <span id="btnNextIcon">🎲</span> <span id="btnNextLabel">Sortear Ordem do 1º Bloco (Apresentação)</span> ▶
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé com Navegador Rápido de Blocos -->
+  <footer>
+    <div>ELEIÇÕES IFAM 2026 • RESOLUÇÃO Nº 092/CONSUP (ANEXO VIII)</div>
+    <div class="block-jump-bar">
+      <span style="align-self: center; font-size: 0.75rem; margin-right: 4px;">Pular para:</span>
+      <button class="jump-btn active" onclick="jumpToStepIndex(0)">Abertura</button>
+      <button class="jump-btn" onclick="jumpToStepIndex(1)">Bloco 1 (Apres.)</button>
+      <button class="jump-btn" onclick="jumpToStepIndex(5)">Bloco 2 (Confronto)</button>
+      <button class="jump-btn" onclick="jumpToStepIndex(13)">Bloco 3 (Plenária)</button>
+      <button class="jump-btn" onclick="jumpToStepIndex(20)">Bloco 4 (Finais)</button>
+      <button class="jump-btn" onclick="jumpToStepIndex(21)">Encerramento</button>
+    </div>
+  </footer>
+
+  <!-- Modal do Banco de Perguntas -->
+  <div class="modal-overlay" id="questionsModal">
+    <div class="modal-box">
+      <div class="modal-title">⚙️ Banco de Perguntas da Plenária (Triadas pela CEL/CMC)</div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Cole as perguntas reais recebidas no formulário (formato JSON ou edite a lista abaixo). O sistema sorteará dinamicamente a partir deste banco durante o 3º Bloco.
+      </p>
+      <textarea class="modal-textarea" id="modalJsonInput"></textarea>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span id="modalSaveMsg" style="font-size: 0.85rem; color: var(--accent);"></span>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-quick" onclick="restoreDefaultQuestions()">Restaurar Simulação</button>
+          <button class="btn-quick warn" onclick="saveQuestionsFromModal()">💾 Salvar Banco</button>
+          <button class="btn-quick" onclick="closeQuestionsModal()">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- DADOS DOS CANDIDATOS ---
+    const CANDIDATOS = [
+      "Prof. Alberto Taveira",
+      "Prof. Jurandy Moreira",
+      "Profa. Miriam Cartonilho"
+    ];
+
+    const TEMAS_OFICIAIS = [
+      "Ensino",
+      "Pesquisa",
+      "Extensão e Extensão Tecnológica",
+      "Esporte e Lazer",
+      "Gestão de Pessoas",
+      "Infraestrutura e Planejamento",
+      "Assistência ao(à) Educando(a)",
+      "Inovação",
+      "Gestão participativa",
+      "Saúde e qualidade de vida do(a) servidor(a)",
+      "Equidade de gênero, racial, diversidade e enfrentamento à violência contra a mulher",
+      "Assédio Moral e Sexual no trabalho"
+    ];
+
+    const DEFAULT_QUESTIONS = [
+      { id: 1, tema: "Ensino", texto: "Quais são as suas diretrizes prioritárias para modernizar os laboratórios didáticos e fortalecer o ensino técnico no CMC?", autor: "Comunidade Acadêmica (Docente)" },
+      { id: 2, tema: "Pesquisa", texto: "Como sua gestão apoiará e financiará os grupos de pesquisa e bolsas de iniciação científica e tecnológica no campus?", autor: "Comunidade Acadêmica (Docente)" },
+      { id: 3, tema: "Extensão e Extensão Tecnológica", texto: "Quais projetos de extensão comunitária e parcerias com o Polo Industrial de Manaus e o setor produtivo serão priorizados?", autor: "Comunidade Acadêmica (TAE)" },
+      { id: 4, tema: "Esporte e Lazer", texto: "Qual o planejamento da chapa para revitalizar os espaços poliesportivos e incentivar os Jogos do IFAM (JIF)?", autor: "Comunidade Acadêmica (Discente)" },
+      { id: 5, tema: "Gestão de Pessoas", texto: "Quais medidas práticas serão adotadas para promover capacitação continuada e valorização das carreiras de TAEs e Docentes?", autor: "Comunidade Acadêmica (TAE)" },
+      { id: 6, tema: "Infraestrutura e Planejamento", texto: "Como a gestão planeja sanar os problemas de climatização, acessibilidade e manutenção predial do campus?", autor: "Comunidade Acadêmica (Discente)" },
+      { id: 7, tema: "Assistência ao(à) Educando(a)", texto: "Quais as estratégias para ampliar e desburocratizar o acesso a auxílios estudantis, alimentação e apoio psicopedagógico?", autor: "Comunidade Acadêmica (Discente)" },
+      { id: 8, tema: "Inovação", texto: "De que forma o CMC apoiará incubadoras de empresas, patentes e o empreendedorismo inovador entre os estudantes?", autor: "Comunidade Acadêmica (Docente)" },
+      { id: 9, tema: "Gestão participativa", texto: "Como os segmentos docente, discente e técnico-administrativo terão voz ativa nas deliberações orçamentárias e decisões do campus?", autor: "Comunidade Acadêmica (TAE)" },
+      { id: 10, tema: "Saúde e qualidade de vida do(a) servidor(a)", texto: "Quais ações concretas serão implementadas para prevenção ao burnout e promoção da saúde mental no trabalho?", autor: "Comunidade Acadêmica (Servidor)" },
+      { id: 11, tema: "Equidade de gênero, racial, diversidade e enfrentamento à violência contra a mulher", texto: "Quais políticas afirmativas e de acolhimento efetivo às mulheres e minorias serão fortalecidas no campus?", autor: "Comunidade Acadêmica (Discente)" },
+      { id: 12, tema: "Assédio Moral e Sexual no trabalho", texto: "Qual a postura institucional e quais os canais seguros e independentes que serão garantidos para combate rigoroso a assédios no CMC?", autor: "Comunidade Acadêmica (Servidora)" }
+    ];
+
+    let questionsDb = [];
+    let b1Ordem = [...CANDIDATOS];
+    let b4Ordem = [...CANDIDATOS];
+    let b3CandidatosDisponiveis = [...CANDIDATOS];
+
+    // --- PIPELINE COMPLETO DE CONDUÇÃO (AS 22 ETAPAS AUTOMATIZADAS) ---
+    let currentStepIndex = 0;
+
+    const PIPELINE = [
+      // ETAPA 0: ABERTURA
+      {
+        phase: "ABERTURA",
+        title: "Abertura Oficial do Debate",
+        speaker: "Mesa da CEL / Mediação",
+        role: "MEDIAÇÃO DO EVENTO",
+        timerSeconds: 0,
+        presetLabel: "Abertura (Não cronometrado)",
+        actionBtn: "🎲 Sortear Ordem do 1º Bloco",
+        actionIcon: "🎲",
+        script: "Boa tarde à comunidade do Instituto Federal do Amazonas! Damos início agora ao <highlight>Debate Eleitoral Oficial 2026</highlight> para a Direção-Geral do <highlight>Campus Manaus Centro</highlight>. Concorrem ao pleito as candidaturas: Prof. Alberto Taveira, Prof. Jurandy Moreira e Profa. Miriam Cartonilho. Vamos iniciar com o sorteio da ordem de apresentação do 1º Bloco.",
+        onExecute: () => runDrawB1()
+      },
+      // ETAPA 1: 1º BLOCO - APRESENTAÇÃO CANDIDATO 1
+      {
+        phase: "1º BLOCO • APRESENTAÇÃO",
+        title: "1ª Apresentação Inicial",
+        speakerDynamic: () => b1Ordem[0],
+        role: "1º APRESENTADOR(A)",
+        timerSeconds: 180,
+        presetLabel: "Apresentação: 3 minutos",
+        actionBtn: "Iniciar Apresentação do 1º Candidato ▶",
+        actionIcon: "🎙️",
+        scriptDynamic: () => `Passamos agora a palavra para o(a) <highlight>${b1Ordem[0]}</highlight>, que dispõe de <highlight>3 minutos</highlight> para sua apresentação inicial. O tempo começa a contar a partir de sua primeira palavra.`,
+        onExecute: () => { autoLoadTimer(180, `Apresentação: 3m (${b1Ordem[0]})`); }
+      },
+      // ETAPA 2: 1º BLOCO - APRESENTAÇÃO CANDIDATO 2
+      {
+        phase: "1º BLOCO • APRESENTAÇÃO",
+        title: "2ª Apresentação Inicial",
+        speakerDynamic: () => b1Ordem[1],
+        role: "2º APRESENTADOR(A)",
+        timerSeconds: 180,
+        presetLabel: "Apresentação: 3 minutos",
+        actionBtn: "Iniciar Apresentação do 2º Candidato ▶",
+        actionIcon: "🎙️",
+        scriptDynamic: () => `Obrigado. Concedemos agora a palavra para o(a) <highlight>${b1Ordem[1]}</highlight>, com <highlight>3 minutos</highlight> para sua apresentação de propostas.`,
+        onExecute: () => { autoLoadTimer(180, `Apresentação: 3m (${b1Ordem[1]})`); }
+      },
+      // ETAPA 3: 1º BLOCO - APRESENTAÇÃO CANDIDATO 3
+      {
+        phase: "1º BLOCO • APRESENTAÇÃO",
+        title: "3ª Apresentação Inicial",
+        speakerDynamic: () => b1Ordem[2],
+        role: "3º APRESENTADOR(A)",
+        timerSeconds: 180,
+        presetLabel: "Apresentação: 3 minutos",
+        actionBtn: "Iniciar Apresentação do 3º Candidato ▶",
+        actionIcon: "🎙️",
+        scriptDynamic: () => `Obrigado. Passamos a palavra ao(à) <highlight>${b1Ordem[2]}</highlight>, que dispõe de <highlight>3 minutos</highlight> para sua apresentação inicial.`,
+        onExecute: () => { autoLoadTimer(180, `Apresentação: 3m (${b1Ordem[2]})`); }
+      },
+      // ETAPA 4: INTERVALO ENTRE BLOCOS
+      {
+        phase: "INTERVALO DE ASSESSORIA",
+        title: "Intervalo de Bancada (Art. 2º, §2º)",
+        speaker: "Assessorias de Bancada",
+        role: "INTERVALO REGULAMENTAR",
+        timerSeconds: 180,
+        presetLabel: "Intervalo: até 3 minutos",
+        actionBtn: "Iniciar Cronômetro do Intervalo (3 min) ▶",
+        actionIcon: "⏸",
+        script: "Concluímos o 1º Bloco. Faremos agora um <highlight>intervalo de 3 minutos</highlight> para diálogo dos candidatos com seus dois assessores credenciados de bancada. Na volta, daremos início ao 2º Bloco de confronto direto entre as candidaturas.",
+        onExecute: () => { autoLoadTimer(180, "Intervalo: 3 minutos"); }
+      },
+      // ETAPA 5: 2º BLOCO - SORTEIO RODADA 1
+      {
+        phase: "2º BLOCO • CONFRONTO DIRETO",
+        title: "Sorteio dos Confrontos da Rodada 1",
+        speaker: "Mediação do Evento",
+        role: "MEDIAÇÃO DO EVENTO",
+        timerSeconds: 0,
+        presetLabel: "Sorteio dos Confrontos",
+        actionBtn: "🎲 Sortear Confrontos da Rodada 1",
+        actionIcon: "🎲",
+        script: "Estamos de volta com o 2º Bloco: confronto direto entre candidatos em duas rodadas completas. Lembramos a regra do Art. 9º: o tempo de pergunta é exclusivo para interpelar o concorrente; fazer propaganda própria na pergunta acarreta perda de 30 segundos. Vamos ao sorteio dos 3 confrontos da Rodada 1.",
+        onExecute: () => runDrawB2(1)
+      },
+      // ETAPAS 6, 7, 8: OS 3 CONFRONTOS DA RODADA 1
+      {
+        phase: "2º BLOCO • RODADA 1",
+        title: "Confronto 1: Taveira pergunta para Moreira",
+        speaker: "Prof. Alberto Taveira",
+        role: "PERGUNTA (1m 30s)",
+        timerSeconds: 90,
+        presetLabel: "Pergunta: 1m30s",
+        actionBtn: "Carregar Pergunta de Taveira (1m30s) ▶",
+        actionIcon: "❓",
+        script: "<highlight>Prof. Alberto Taveira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Jurandy Moreira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Prof. Alberto Taveira", "Prof. Jurandy Moreira")
+      },
+      {
+        phase: "2º BLOCO • RODADA 1",
+        title: "Confronto 2: Moreira pergunta para Miriam",
+        speaker: "Prof. Jurandy Moreira",
+        role: "PERGUNTA (1m 30s)",
+        timerSeconds: 90,
+        presetLabel: "Pergunta: 1m30s",
+        actionBtn: "Carregar Pergunta de Moreira (1m30s) ▶",
+        actionIcon: "❓",
+        script: "<highlight>Prof. Jurandy Moreira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para a candidata <highlight>Profa. Miriam Cartonilho</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Prof. Jurandy Moreira", "Profa. Miriam Cartonilho")
+      },
+      {
+        phase: "2º BLOCO • RODADA 1",
+        title: "Confronto 3: Miriam pergunta para Taveira",
+        speaker: "Profa. Miriam Cartonilho",
+        role: "PERGUNTA (1m 30s)",
+        timerSeconds: 90,
+        presetLabel: "Pergunta: 1m30s",
+        actionBtn: "Carregar Pergunta de Miriam (1m30s) ▶",
+        actionIcon: "❓",
+        script: "<highlight>Profa. Miriam Cartonilho</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Alberto Taveira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Profa. Miriam Cartonilho", "Prof. Alberto Taveira")
+      },
+      // ETAPA 9: INTERVALO ENTRE RODADAS DO BLOCO 2
+      {
+        phase: "INTERVALO DE ASSESSORIA",
+        title: "Intervalo entre Rodadas (3 min)",
+        speaker: "Assessorias de Bancada",
+        role: "INTERVALO REGULAMENTAR",
+        timerSeconds: 180,
+        presetLabel: "Intervalo: 3 minutos",
+        actionBtn: "Iniciar Cronômetro do Intervalo (3 min) ▶",
+        actionIcon: "⏸",
+        script: "Concluímos a Rodada 1 do confronto direto. Faremos um breve intervalo de 3 minutos para assessoria antes da Rodada 2, na qual os pares serão invertidos.",
+        onExecute: () => autoLoadTimer(180, "Intervalo: 3 minutos")
+      },
+      // ETAPAS 10, 11, 12: OS 3 CONFRONTOS DA RODADA 2 (INVERTIDOS)
+      {
+        phase: "2º BLOCO • RODADA 2",
+        title: "Confronto 4: Taveira pergunta para Miriam",
+        speaker: "Prof. Alberto Taveira",
+        role: "PERGUNTA (1m 30s)",
+        timerSeconds: 90,
+        presetLabel: "Pergunta: 1m30s",
+        actionBtn: "Carregar Pergunta de Taveira (1m30s) ▶",
+        actionIcon: "❓",
+        script: "Iniciamos a Rodada 2. <highlight>Prof. Alberto Taveira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para a candidata <highlight>Profa. Miriam Cartonilho</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Prof. Alberto Taveira", "Profa. Miriam Cartonilho")
+      },
+      {
+        phase: "2º BLOCO • RODADA 2",
+        title: "Confronto 5: Miriam pergunta para Moreira",
+        speaker: "Profa. Miriam Cartonilho",
+        role: "PERGUNTA (1m 30s)",
+        timerSeconds: 90,
+        presetLabel: "Pergunta: 1m30s",
+        actionBtn: "Carregar Pergunta de Miriam (1m30s) ▶",
+        actionIcon: "❓",
+        script: "<highlight>Profa. Miriam Cartonilho</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Jurandy Moreira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Profa. Miriam Cartonilho", "Prof. Jurandy Moreira")
+      },
+      {
+        phase: "2º BLOCO • RODADA 2",
+        title: "Confronto 6: Moreira pergunta para Taveira",
+        speaker: "Prof. Jurandy Moreira",
+        role: "PERGUNTA (1m 30s)",
+        timerSeconds: 90,
+        presetLabel: "Pergunta: 1m30s",
+        actionBtn: "Carregar Pergunta de Moreira (1m30s) ▶",
+        actionIcon: "❓",
+        script: "<highlight>Prof. Jurandy Moreira</highlight>, formule sua pergunta em até <highlight>1 minuto e 30 segundos</highlight> para o candidato <highlight>Prof. Alberto Taveira</highlight>.",
+        onExecute: () => autoLoadConfrontoStep("Prof. Jurandy Moreira", "Prof. Alberto Taveira")
+      },
+      // ETAPA 13: INTERVALO PARA BLOCO 3
+      {
+        phase: "INTERVALO DE ASSESSORIA",
+        title: "Intervalo para o 3º Bloco (3 min)",
+        speaker: "Assessorias de Bancada",
+        role: "INTERVALO REGULAMENTAR",
+        timerSeconds: 180,
+        presetLabel: "Intervalo: 3 minutos",
+        actionBtn: "Iniciar Intervalo de 3 minutos ▶",
+        actionIcon: "⏸",
+        script: "Encerramos o 2º Bloco de confronto direto. Faremos agora um intervalo de 3 minutos. Na volta, abriremos o 3º Bloco com as perguntas da comunidade acadêmica do CMC, sorteadas ao vivo com a presença dos fiscais na Sala da DIREC.",
+        onExecute: () => autoLoadTimer(180, "Intervalo: 3 minutos")
+      },
+      // ETAPAS 14 A 19: AS 6 PERGUNTAS DO BLOCO 3 (SALA DA DIREC)
+      {
+        phase: "3º BLOCO • PLENÁRIA CMC",
+        title: "Pergunta 1 da Comunidade (Sorteio Quádruplo)",
+        speaker: "Mediação / Sala da DIREC",
+        role: "SORTEIO QUÁDRUPLO AO VIVO",
+        timerSeconds: 180,
+        presetLabel: "Resposta: 3 minutos",
+        actionBtn: "🎲 Executar Sorteio da Pergunta 1 na Sala da DIREC",
+        actionIcon: "🎲",
+        script: "Damos início ao 3º Bloco. Estamos conectando a transmissão à Sala da DIREC do Campus Manaus Centro, onde se encontram a Comissão Eleitoral e os fiscais de cada candidatura. Vamos realizar o sorteio quádruplo ao vivo da 1ª Pergunta.",
+        onExecute: () => runDrawB3Full(1)
+      },
+      {
+        phase: "3º BLOCO • PLENÁRIA CMC",
+        title: "Pergunta 2 da Comunidade (Sorteio Quádruplo)",
+        speaker: "Mediação / Sala da DIREC",
+        role: "SORTEIO QUÁDRUPLO AO VIVO",
+        timerSeconds: 180,
+        presetLabel: "Resposta: 3 minutos",
+        actionBtn: "🎲 Executar Sorteio da Pergunta 2 na Sala da DIREC",
+        actionIcon: "🎲",
+        script: "Vamos agora ao sorteio quádruplo da 2ª Pergunta da plenária, entre as candidaturas que ainda não responderam nesta rodada.",
+        onExecute: () => runDrawB3Full(2)
+      },
+      {
+        phase: "3º BLOCO • PLENÁRIA CMC",
+        title: "Pergunta 3 da Comunidade (Sorteio Quádruplo)",
+        speaker: "Mediação / Sala da DIREC",
+        role: "SORTEIO QUÁDRUPLO AO VIVO",
+        timerSeconds: 180,
+        presetLabel: "Resposta: 3 minutos",
+        actionBtn: "🎲 Executar Sorteio da Pergunta 3 na Sala da DIREC",
+        actionIcon: "🎲",
+        script: "Sorteio da 3ª Pergunta da plenária, encerrando a 1ª Rodada do Bloco 3.",
+        onExecute: () => runDrawB3Full(3)
+      },
+      {
+        phase: "3º BLOCO • PLENÁRIA CMC",
+        title: "Pergunta 4 da Comunidade (Início da Rodada 2)",
+        speaker: "Mediação / Sala da DIREC",
+        role: "SORTEIO QUÁDRUPLO AO VIVO",
+        timerSeconds: 180,
+        presetLabel: "Resposta: 3 minutos",
+        actionBtn: "🎲 Executar Sorteio da Pergunta 4 na Sala da DIREC",
+        actionIcon: "🎲",
+        script: "Iniciamos a 2ª Rodada de perguntas da plenária. Todas as 3 candidaturas voltam a estar aptas ao sorteio para responder à sua segunda pergunta.",
+        onExecute: () => { b3CandidatosDisponiveis = [...CANDIDATOS]; runDrawB3Full(4); }
+      },
+      {
+        phase: "3º BLOCO • PLENÁRIA CMC",
+        title: "Pergunta 5 da Comunidade (Sorteio Quádruplo)",
+        speaker: "Mediação / Sala da DIREC",
+        role: "SORTEIO QUÁDRUPLO AO VIVO",
+        timerSeconds: 180,
+        presetLabel: "Resposta: 3 minutos",
+        actionBtn: "🎲 Executar Sorteio da Pergunta 5 na Sala da DIREC",
+        actionIcon: "🎲",
+        script: "Sorteio da 5ª Pergunta da plenária na Sala da DIREC.",
+        onExecute: () => runDrawB3Full(5)
+      },
+      {
+        phase: "3º BLOCO • PLENÁRIA CMC",
+        title: "Pergunta 6 da Comunidade (Sorteio Quádruplo)",
+        speaker: "Mediação / Sala da DIREC",
+        role: "SORTEIO QUÁDRUPLO AO VIVO",
+        timerSeconds: 180,
+        presetLabel: "Resposta: 3 minutos",
+        actionBtn: "🎲 Executar Sorteio da Pergunta 6 na Sala da DIREC",
+        actionIcon: "🎲",
+        script: "Sorteio da 6ª e última pergunta da plenária, garantindo que todas as candidaturas responderam a duas perguntas da comunidade com 3 minutos diretos de fala.",
+        onExecute: () => runDrawB3Full(6)
+      },
+      // ETAPA 20: 4º BLOCO - CONSIDERAÇÕES FINAIS
+      {
+        phase: "4º BLOCO • CONSIDERAÇÕES FINAIS",
+        title: "Considerações Finais (Sorteio da Ordem)",
+        speaker: "Mediação do Evento",
+        role: "MEDIAÇÃO DO EVENTO",
+        timerSeconds: 0,
+        presetLabel: "Sorteio da Ordem Final",
+        actionBtn: "🎲 Sortear Ordem das Considerações Finais",
+        actionIcon: "🎲",
+        script: "Chegamos ao 4º e último Bloco do debate: as <highlight>Considerações Finais</highlight>. Cada candidatura disporá de <highlight>3 minutos</highlight> para suas palavras de encerramento e mensagem final à comunidade acadêmica do CMC. Vamos realizar o sorteio público da ordem de falas.",
+        onExecute: () => runDrawB4()
+      },
+      // ETAPA 21: ENCERRAMENTO DO DEBATE
+      {
+        phase: "ENCERRAMENTO OFICIAL",
+        title: "Encerramento e Agradecimentos da CEL/CMC",
+        speaker: "Presidente da CEL / Mediação",
+        role: "COMISSÃO ELEITORAL LOCAL",
+        timerSeconds: 0,
+        presetLabel: "Encerramento Oficial",
+        actionBtn: "✔ Concluir Debate e Fechar Transmissão",
+        actionIcon: "🏆",
+        script: "Declaramos oficialmente encerrado o <highlight>Debate Eleitoral 2026 para a Direção-Geral do Campus Manaus Centro</highlight>. Em nome da Comissão Eleitoral Local, agradecemos aos professores Alberto Taveira, Jurandy Moreira e à professora Miriam Cartonilho, suas equipes de assessoria e aos fiscais presentes na Sala da DIREC pela postura ética e de elevado nível democrático. Lembramos a todos que a <highlight>VOTAÇÃO ELETRÔNICA ocorrerá nos dias 26 e 27 de novembro pelo sistema Helios Voting</highlight>. Uma boa noite a todos e exerçam seu voto!",
+        onExecute: () => soundFanfare()
+      }
+    ];
+
+    // --- CRONÔMETRO VARIABLES ---
+    let timerDuration = 180;
+    let timerRemaining = 180;
+    let timerInterval = null;
+    let timerRunning = false;
+    let warned1Min = false;
+
+    // --- INICIALIZAÇÃO ---
+    window.addEventListener('DOMContentLoaded', () => {
+      loadQuestions();
+      renderStep(0);
+      updateTimerDisplay();
+    });
+
+    // --- RENDERIZADOR DA ETAPA ATUAL ---
+    function renderStep(index) {
+      currentStepIndex = index;
+      const step = PIPELINE[index];
+
+      document.getElementById('stepCounterBadge').innerText = `ETAPA ${index + 1} DE ${PIPELINE.length}`;
+      document.getElementById('phaseTitle').innerText = step.title;
+      document.getElementById('currentPhaseTag').innerText = step.phase;
+
+      // Speaker
+      const speakerName = step.speakerDynamic ? step.speakerDynamic() : step.speaker;
+      document.getElementById('speakerName').innerText = speakerName;
+      document.getElementById('speakerRole').innerText = step.role;
+      document.getElementById('speakerDetail').innerText = step.phase;
+
+      // Script do Mediador
+      const scriptText = step.scriptDynamic ? step.scriptDynamic() : step.script;
+      document.getElementById('mediatorScript').innerHTML = scriptText;
+
+      // Botão de Próxima Ação
+      document.getElementById('btnNextLabel').innerText = step.actionBtn;
+      document.getElementById('btnNextIcon').innerText = step.actionIcon;
+
+      // Presets de Timer
+      document.getElementById('timerPresetInfo').innerText = `⏱️ ${step.presetLabel}`;
+      if (step.timerSeconds > 0) {
+        setTimerPreset(step.timerSeconds, step.presetLabel);
+      } else {
+        resetTimerToZero();
+      }
+
+      // Destaca pílula do candidato
+      document.querySelectorAll('.cand-pill').forEach(p => p.classList.remove('active'));
+      if (speakerName.includes('Taveira')) document.getElementById('pill-Taveira').classList.add('active');
+      if (speakerName.includes('Moreira')) document.getElementById('pill-Moreira').classList.add('active');
+      if (speakerName.includes('Miriam')) document.getElementById('pill-Miriam').classList.add('active');
+
+      // Botão anterior
+      document.getElementById('btnPrev').disabled = (index === 0);
+
+      // Atualiza botões de pular no footer
+      updateJumpButtons();
+
+      // Limpa subpainel
+      document.getElementById('subpanelArea').style.display = 'none';
+      document.getElementById('subpanelArea').innerHTML = '';
+    }
+
+    function executeCurrentStep() {
+      const step = PIPELINE[currentStepIndex];
+      soundClick();
+
+      // Executa o sorteio ou ação especial da etapa
+      if (step.onExecute) {
+        try {
+          step.onExecute();
+        } catch (err) {
+          console.error("Erro na execução da etapa:", err);
+        }
+      }
+
+      // Se for uma etapa de fala simples com timer, avança para a próxima após carregar
+      // ou se o usuário clicar novamente, avança para a próxima etapa
+      if (currentStepIndex < PIPELINE.length - 1) {
+        // Altera o label do botão para avançar para a próxima etapa se ainda não tiver avançado
+        setTimeout(() => {
+          document.getElementById('btnNextLabel').innerText = `Avançar para Etapa ${currentStepIndex + 2} ▶`;
+          document.getElementById('btnNextAction').onclick = () => {
+            renderStep(currentStepIndex + 1);
+            document.getElementById('btnNextAction').onclick = () => executeCurrentStep();
+          };
+        }, 1200);
+      }
+    }
+
+    function previousStep() {
+      if (currentStepIndex > 0) {
+        soundClick();
+        renderStep(currentStepIndex - 1);
+      }
+    }
+
+    function jumpToStepIndex(idx) {
+      soundClick();
+      renderStep(idx);
+    }
+
+    function updateJumpButtons() {
+      const btns = document.querySelectorAll('.jump-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      if (currentStepIndex === 0 && btns[0]) btns[0].classList.add('active');
+      else if (currentStepIndex >= 1 && currentStepIndex <= 4 && btns[1]) btns[1].classList.add('active');
+      else if (currentStepIndex >= 5 && currentStepIndex <= 12 && btns[2]) btns[2].classList.add('active');
+      else if (currentStepIndex >= 13 && currentStepIndex <= 19 && btns[3]) btns[3].classList.add('active');
+      else if (currentStepIndex === 20 && btns[4]) btns[4].classList.add('active');
+      else if (currentStepIndex === 21 && btns[5]) btns[5].classList.add('active');
+    }
+
+    // --- ALGORITMO FISHER-YATES: DISTRIBUIÇÃO RIGOROSAMENTE EQUIPROVÁVEL (33,33% CADA) ---
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // --- SORTEIO DO BLOCO 1 (DIGITAL OU REGISTRO DA URNA FÍSICA) ---
+    function runDrawB1() {
+      const sub = document.getElementById('subpanelArea');
+      sub.style.display = 'block';
+      sub.innerHTML = `
+        <div style="font-weight: 800; color: var(--gold); margin-bottom: 6px;">🎲 Sorteando Ordem de Apresentação (Urna Digital)...</div>
+        <div id="drawRollDisplay" style="font-size: 1.8rem; font-weight: 900; color: white;">Embaralhando urnas...</div>
+      `;
+
+      animateRoll(document.getElementById('drawRollDisplay'), CANDIDATOS, 1800, () => {
+        b1Ordem = shuffleArray(CANDIDATOS);
+        soundFanfare();
+        renderDrawB1Cards();
+      });
+    }
+
+    function renderDrawB1Cards() {
+      const sub = document.getElementById('subpanelArea');
+      sub.style.display = 'block';
+      sub.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+          <div style="font-weight: 800; color: var(--accent);">✔ Ordem Oficial Sorteada para Apresentação (1º Bloco):</div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-quick" style="padding: 4px 10px; font-size: 0.8rem;" onclick="runDrawB1()">🎲 Sortear Novamente</button>
+            <button class="btn-quick" style="padding: 4px 10px; font-size: 0.8rem; border-color: var(--gold); color: var(--gold-light);" onclick="promptManualB1Order()">✍️ Inserir Ordem da Urna Física</button>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap;">
+          <div style="background: rgba(255,255,255,0.08); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--gold); min-width: 180px;">
+            <span style="font-size: 0.75rem; color: var(--gold); font-weight: 800;">1º A FALAR (3m)</span><br>
+            <strong style="font-size: 1.1rem; color: #fff;">${b1Ordem[0]}</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.08); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border); min-width: 180px;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">2º A FALAR (3m)</span><br>
+            <strong style="font-size: 1.1rem; color: #e2e8f0;">${b1Ordem[1]}</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.08); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border); min-width: 180px;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">3º A FALAR (3m)</span><br>
+            <strong style="font-size: 1.1rem; color: #e2e8f0;">${b1Ordem[2]}</strong>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('mediatorScript').innerHTML = `
+        Ordem sorteada oficialmente: 1º a falar: <highlight>${b1Ordem[0]}</highlight>; 2º a falar: <highlight>${b1Ordem[1]}</highlight>; e 3º a falar: <highlight>${b1Ordem[2]}</highlight>. Cada candidatura dispõe de 3 minutos regulamentares.
+      `;
+
+      // Atualiza botão de avanço
+      document.getElementById('btnNextLabel').innerText = `Avançar para Etapa 2 (1º: ${b1Ordem[0].split(' ')[1] || b1Ordem[0]}) ▶`;
+      document.getElementById('btnNextAction').onclick = () => {
+        renderStep(1);
+        document.getElementById('btnNextAction').onclick = () => executeCurrentStep();
+      };
+    }
+
+    function promptManualB1Order() {
+      const c1 = prompt("Informe o 1º CANDIDATO sorteado na urna da DIREC:", b1Ordem[0]);
+      if (!c1) return;
+      const c2 = prompt("Informe o 2º CANDIDATO sorteado:", b1Ordem[1]);
+      if (!c2) return;
+      const c3 = prompt("Informe o 3º CANDIDATO sorteado:", b1Ordem[2]);
+      if (!c3) return;
+      b1Ordem = [c1.trim(), c2.trim(), c3.trim()];
+      soundFanfare();
+      renderDrawB1Cards();
+    }
+
+    // --- SORTEIO / APRESENTAÇÃO DOS CONFRONTOS DO BLOCO 2 (RODADA 1) ---
+    function runDrawB2(rodada = 1) {
+      const sub = document.getElementById('subpanelArea');
+      sub.style.display = 'block';
+      sub.innerHTML = `
+        <div style="font-weight: 800; color: var(--gold); margin-bottom: 6px;">🎲 Sorteando Ordem dos Confrontos da Rodada ${rodada}...</div>
+        <div id="drawRollDisplayB2" style="font-size: 1.8rem; font-weight: 900; color: white;">Embaralhando urnas de confrontos...</div>
+      `;
+
+      animateRoll(document.getElementById('drawRollDisplayB2'), CANDIDATOS, 1500, () => {
+        soundFanfare();
+        sub.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <div style="font-weight: 800; color: var(--accent);">✔ Confrontos Definidos para a Rodada ${rodada} (Art. 14):</div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-quick" style="padding: 4px 10px; font-size: 0.8rem;" onclick="runDrawB2(${rodada})">🎲 Sortear Novamente</button>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 8px;">
+            <div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px solid var(--gold);">
+              <span style="font-size: 0.75rem; color: var(--gold); font-weight: 800;">1º CONFRONTO (6m45s)</span><br>
+              <strong style="color: #fff;">Alberto Taveira</strong> ➔ <strong style="color: #90caf9;">Jurandy Moreira</strong>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">2º CONFRONTO (6m45s)</span><br>
+              <strong style="color: #fff;">Jurandy Moreira</strong> ➔ <strong style="color: #a7f3d0;">Miriam Cartonilho</strong>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">3º CONFRONTO (6m45s)</span><br>
+              <strong style="color: #fff;">Miriam Cartonilho</strong> ➔ <strong style="color: #ffd54f;">Alberto Taveira</strong>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('mediatorScript').innerHTML = `
+          Confrontos definidos para a <highlight>Rodada 1</highlight>: 1º Confronto: <highlight>Prof. Alberto Taveira pergunta para o Prof. Jurandy Moreira</highlight>; 2º Confronto: <highlight>Prof. Jurandy Moreira pergunta para a Profa. Miriam Cartonilho</highlight>; 3º Confronto: <highlight>Profa. Miriam Cartonilho pergunta para o Prof. Alberto Taveira</highlight>. Cada confronto dispõe de 6m45s (Pergunta 1m30s | Resposta 3m | Réplica 45s | Tréplica 1m30s).
+        `;
+
+        document.getElementById('btnNextLabel').innerText = `Avançar para Confronto 1 (Taveira ➔ Moreira) ▶`;
+        document.getElementById('btnNextAction').onclick = () => {
+          renderStep(currentStepIndex + 1);
+          document.getElementById('btnNextAction').onclick = () => executeCurrentStep();
+        };
+      });
+    }
+
+    // --- CONFRONTO DIRETO COM SUB-ETAPAS INTUITIVAS ---
+    function autoLoadConfrontoStep(perguntador, respondedor) {
+      const sub = document.getElementById('subpanelArea');
+      sub.style.display = 'block';
+      sub.innerHTML = `
+        <div style="font-weight: 800; color: var(--gold); margin-bottom: 8px;">⚔️ Dinâmica Completa deste Confronto:</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn-quick" style="background: var(--primary); font-weight: 800;" onclick="switchConfrontoPhase('${perguntador}', 'Pergunta (1m30s)', 90)">
+            1. Pergunta: ${perguntador.split(' ')[1] || perguntador} (1m30s)
+          </button>
+          <button class="btn-quick" onclick="switchConfrontoPhase('${respondedor}', 'Resposta (3m)', 180)">
+            2. Resposta: ${respondedor.split(' ')[1] || respondedor} (3m)
+          </button>
+          <button class="btn-quick" onclick="switchConfrontoPhase('${perguntador}', 'Réplica (45s)', 45)">
+            3. Réplica: ${perguntador.split(' ')[1] || perguntador} (45s)
+          </button>
+          <button class="btn-quick" onclick="switchConfrontoPhase('${respondedor}', 'Tréplica (1m30s)', 90)">
+            4. Tréplica: ${respondedor.split(' ')[1] || respondedor} (1m30s)
+          </button>
+        </div>
+      `;
+      switchConfrontoPhase(perguntador, 'Pergunta (1m30s)', 90);
+    }
+
+    function switchConfrontoPhase(speaker, roleText, seconds) {
+      soundClick();
+      setSpeakerManual(speaker, roleText);
+      setTimerPreset(seconds, roleText);
+      document.getElementById('mediatorScript').innerHTML = `
+        Com a palavra <highlight>${speaker}</highlight> para <highlight>${roleText}</highlight>. Cronômetro na tela.
+      `;
+    }
+
+    // --- SORTEIO COMPLETO NA SALA DA DIREC (BLOCO 3) ---
+    function runDrawB3Full(perguntaNum) {
+      const sub = document.getElementById('subpanelArea');
+      sub.style.display = 'block';
+      sub.innerHTML = `
+        <div style="font-weight: 800; color: var(--gold); margin-bottom: 4px;">🏛️ Sala da DIREC: Executando Sorteio Quádruplo ao Vivo (Pergunta ${perguntaNum}/6)...</div>
+        <div id="drawRollDisplayB3" style="font-size: 1.5rem; font-weight: 900; color: white;">1º Sorteando o Tema...</div>
+      `;
+
+      // 1º Sorteia Tema
+      animateRoll(document.getElementById('drawRollDisplayB3'), TEMAS_OFICIAIS, 1800, () => {
+        const temaSorteado = TEMAS_OFICIAIS[Math.floor(Math.random() * TEMAS_OFICIAIS.length)];
+        soundFanfare();
+        document.getElementById('drawRollDisplayB3').innerText = `Tema Sorteado: ${temaSorteado}`;
+
+        // 2º Sorteia Pergunta do Tema
+        if (!questionsDb || questionsDb.length === 0) {
+          questionsDb = [...DEFAULT_QUESTIONS];
+        }
+        let candidatas = questionsDb.filter(q => q.tema === temaSorteado);
+        if (candidatas.length === 0) candidatas = questionsDb;
+        const perg = (candidatas.length > 0)
+          ? candidatas[Math.floor(Math.random() * candidatas.length)]
+          : DEFAULT_QUESTIONS[0];
+
+        // 3º Sorteia Candidato Respondente (sem reposição na rodada)
+        if (b3CandidatosDisponiveis.length === 0) {
+          b3CandidatosDisponiveis = [...CANDIDATOS];
+        }
+        const candIdx = Math.floor(Math.random() * b3CandidatosDisponiveis.length);
+        const candidatoSorteado = b3CandidatosDisponiveis.splice(candIdx, 1)[0];
+
+        setTimeout(() => {
+          soundFanfare();
+          sub.innerHTML = `
+            <div class="question-display">
+              <div class="q-theme">1º TEMA: ${temaSorteado.toUpperCase()} • 2º PERGUNTA Nº ${perg.id}</div>
+              <div class="q-body">"${perg.texto}"</div>
+              <div class="q-author">Identificação: ${perg.autor}</div>
+              <div style="margin-top: 10px; font-size: 1.15rem; font-weight: 800; color: var(--accent);">
+                🎯 4º CANDIDATURA SORTEADA PARA RESPONDER: ${candidatoSorteado} (3 minutos)
+              </div>
+            </div>
+          `;
+
+          setSpeakerManual(candidatoSorteado, `3º BLOCO • PERGUNTA ${perguntaNum}`, `Tema: ${temaSorteado}`);
+          setTimerPreset(180, `Resposta: 3 minutos (${candidatoSorteado})`);
+
+          document.getElementById('mediatorScript').innerHTML = `
+            Na Sala da DIREC, foi sorteado o tema <highlight>${temaSorteado}</highlight>, pergunta nº <highlight>${perg.id}</highlight>: <em>"${perg.texto}"</em>. E para responder em 3 minutos, foi sorteado(a) o(a) candidato(a) <highlight>${candidatoSorteado}</highlight>. A palavra é sua.
+          `;
+
+          if (perguntaNum < 6) {
+            document.getElementById('btnNextLabel').innerText = `Avançar para Pergunta ${perguntaNum + 1} de 6 ▶`;
+          } else {
+            document.getElementById('btnNextLabel').innerText = `Avançar para Bloco 4 (Considerações Finais) ▶`;
+          }
+          document.getElementById('btnNextAction').onclick = () => {
+            renderStep(currentStepIndex + 1);
+            document.getElementById('btnNextAction').onclick = () => executeCurrentStep();
+          };
+        }, 1200);
+      });
+    }
+
+    // --- SORTEIO DO BLOCO 4 (CONSIDERAÇÕES FINAIS) ---
+    function runDrawB4() {
+      const sub = document.getElementById('subpanelArea');
+      sub.style.display = 'block';
+      sub.innerHTML = `
+        <div style="font-weight: 800; color: var(--gold); margin-bottom: 6px;">🎲 Sorteando Ordem das Considerações Finais (Urna Digital)...</div>
+        <div id="drawRollDisplayB4" style="font-size: 1.8rem; font-weight: 900; color: white;">Embaralhando urnas...</div>
+      `;
+
+      animateRoll(document.getElementById('drawRollDisplayB4'), CANDIDATOS, 1800, () => {
+        b4Ordem = shuffleArray(CANDIDATOS);
+        soundFanfare();
+        renderDrawB4Cards();
+      });
+    }
+
+    function renderDrawB4Cards() {
+      const sub = document.getElementById('subpanelArea');
+      sub.style.display = 'block';
+      sub.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+          <div style="font-weight: 800; color: var(--accent);">✔ Ordem Oficial Sorteada para Considerações Finais (4º Bloco):</div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-quick" style="padding: 4px 10px; font-size: 0.8rem;" onclick="runDrawB4()">🎲 Sortear Novamente</button>
+            <button class="btn-quick" style="padding: 4px 10px; font-size: 0.8rem; border-color: var(--gold); color: var(--gold-light);" onclick="promptManualB4Order()">✍️ Inserir Ordem da Urna Física</button>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap;">
+          <div style="background: rgba(255,255,255,0.08); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--gold); min-width: 180px;">
+            <span style="font-size: 0.75rem; color: var(--gold); font-weight: 800;">1º A FALAR (3m)</span><br>
+            <strong style="font-size: 1.1rem; color: #fff;">${b4Ordem[0]}</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.08); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border); min-width: 180px;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">2º A FALAR (3m)</span><br>
+            <strong style="font-size: 1.1rem; color: #e2e8f0;">${b4Ordem[1]}</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.08); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border); min-width: 180px;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 800;">3º A FALAR (3m)</span><br>
+            <strong style="font-size: 1.1rem; color: #e2e8f0;">${b4Ordem[2]}</strong>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('mediatorScript').innerHTML = `
+        Ordem das Considerações Finais: 1º a falar: <highlight>${b4Ordem[0]}</highlight>; 2º a falar: <highlight>${b4Ordem[1]}</highlight>; e 3º a falar: <highlight>${b4Ordem[2]}</highlight>. Concedemos a palavra ao 1º sorteado para seus 3 minutos finais.
+      `;
+      setSpeakerManual(b4Ordem[0], 'CONSIDERAÇÕES FINAIS (3m)');
+      setTimerPreset(180, `Considerações Finais: 3m (${b4Ordem[0]})`);
+    }
+
+    function promptManualB4Order() {
+      const c1 = prompt("Informe o 1º CANDIDATO sorteado na urna da DIREC (Considerações Finais):", b4Ordem[0]);
+      if (!c1) return;
+      const c2 = prompt("Informe o 2º CANDIDATO sorteado:", b4Ordem[1]);
+      if (!c2) return;
+      const c3 = prompt("Informe o 3º CANDIDATO sorteado:", b4Ordem[2]);
+      if (!c3) return;
+      b4Ordem = [c1.trim(), c2.trim(), c3.trim()];
+      soundFanfare();
+      renderDrawB4Cards();
+    }
+
+    // --- CRONÔMETRO LOGIC ---
+    function updateTimerDisplay() {
+      const min = Math.floor(timerRemaining / 60);
+      const sec = timerRemaining % 60;
+      const displayStr = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+      const disp = document.getElementById('timerDisplay');
+      disp.innerText = displayStr;
+
+      const card = document.getElementById('timerCard');
+      const alertText = document.getElementById('timerAlertText');
+
+      if (timerRemaining === 0) {
+        disp.className = 'timer-display danger';
+        card.className = 'timer-card danger-state';
+        alertText.innerText = 'TEMPO ESGOTADO! (Corte de Microfone)';
+        document.getElementById('timerStatusBadge').innerText = 'ESGOTADO';
+      } else if (timerRemaining <= 60 && timerRunning) {
+        disp.className = 'timer-display warning';
+        card.className = 'timer-card warning-state';
+        alertText.innerText = '⚠️ RESTA 1 MINUTO!';
+      } else {
+        disp.className = 'timer-display';
+        card.className = 'timer-card';
+        if (timerRunning) {
+          alertText.innerText = 'FALA EM ANDAMENTO';
+          document.getElementById('timerStatusBadge').innerText = 'EM FALA';
+        } else {
+          alertText.innerText = 'TEMPO REGULAMENTAR';
+          document.getElementById('timerStatusBadge').innerText = 'PAUSADO / PRONTO';
+        }
+      }
+    }
+
+    function startTimer() {
+      if (timerRunning || timerRemaining <= 0) return;
+      timerRunning = true;
+      document.getElementById('btnStart').disabled = true;
+      document.getElementById('btnPause').disabled = false;
+      soundBeep(523, 0.1);
+
+      timerInterval = setInterval(() => {
+        if (timerRemaining > 0) {
+          timerRemaining--;
+
+          if (timerRemaining === 60 && !warned1Min) {
+            warned1Min = true;
+            soundWarning();
+          }
+
+          updateTimerDisplay();
+
+          if (timerRemaining === 0) {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            document.getElementById('btnStart').disabled = true;
+            document.getElementById('btnPause').disabled = true;
+            soundTimeUp();
+          }
+        }
+      }, 1000);
+
+      updateTimerDisplay();
+    }
+
+    function pauseTimer() {
+      if (!timerRunning) return;
+      clearInterval(timerInterval);
+      timerRunning = false;
+      document.getElementById('btnStart').disabled = false;
+      document.getElementById('btnPause').disabled = true;
+      updateTimerDisplay();
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerRemaining = timerDuration;
+      warned1Min = false;
+      document.getElementById('btnStart').disabled = false;
+      document.getElementById('btnPause').disabled = true;
+      updateTimerDisplay();
+    }
+
+    function setTimerPreset(seconds, label) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerDuration = seconds;
+      timerRemaining = seconds;
+      warned1Min = false;
+      document.getElementById('btnStart').disabled = false;
+      document.getElementById('btnPause').disabled = true;
+      updateTimerDisplay();
+      if (label) document.getElementById('timerAlertText').innerText = label;
+    }
+
+    function resetTimerToZero() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerDuration = 0;
+      timerRemaining = 0;
+      updateTimerDisplay();
+    }
+
+    function autoLoadTimer(seconds, label) {
+      setTimerPreset(seconds, label);
+      startTimer();
+    }
+
+    // --- AÇÕES RÁPIDAS DE EMERGÊNCIA ---
+    function applyPenalty30s() {
+      if (confirm("Deseja aplicar a punição do Art. 9º (Perda de 30 segundos na fala seguinte por desvio de propaganda)?")) {
+        soundWarning();
+        if (timerRemaining > 30) {
+          timerRemaining -= 30;
+          updateTimerDisplay();
+          alert("Aplicada a dedução de 30 segundos no cronômetro atual!");
+        } else {
+          timerRemaining = 0;
+          updateTimerDisplay();
+        }
+      }
+    }
+
+    function grantRightOfReply() {
+      const cand = prompt("Informe o nome do candidato que recebeu o Direito de Resposta (Art. 11):", "Prof. Alberto Taveira");
+      if (cand) {
+        soundFanfare();
+        setSpeakerManual(cand, "DIREITO DE RESPOSTA (Art. 11)", "Ofensa moral deferida pela CEL");
+        setTimerPreset(180, `Direito de Resposta: 3m (${cand})`);
+        document.getElementById('mediatorScript').innerHTML = `
+          A presidência da CEL deferiu o pedido de <highlight>Direito de Resposta</highlight> ao(à) candidato(a) <highlight>${cand}</highlight>, que dispõe de <highlight>3 minutos regulamentares</highlight>.
+        `;
+      }
+    }
+
+    function technicalPause() {
+      pauseTimer();
+      alert("PAUSA TÉCNICA ACIONADA! O cronômetro foi congelado para restabelecimento de conexão. Clique em Iniciar quando o candidato retornar.");
+    }
+
+    function resetFullDebate() {
+      if (confirm("⚠️ DESEJA REINICIAR O DEBATE DO INÍCIO?\n\nIsso voltará para a Etapa 1 (Abertura), zerando os sorteios, o cronômetro e o teleprompter.")) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        currentStepIndex = 0;
+        b1Ordem = [...CANDIDATOS];
+        b4Ordem = [...CANDIDATOS];
+        b3CandidatosDisponiveis = [...CANDIDATOS];
+        warned1Min = false;
+        
+        const sub = document.getElementById('subpanelArea');
+        if (sub) {
+          sub.style.display = 'none';
+          sub.innerHTML = '';
+        }
+
+        renderStep(0);
+        resetTimerToZero();
+        document.getElementById('btnNextAction').onclick = () => executeCurrentStep();
+        soundFanfare();
+      }
+    }
+
+    function setSpeakerManual(name, role = 'CANDIDATURA EM EXPOSIÇÃO', detail = '') {
+      document.getElementById('speakerName').innerText = name;
+      document.getElementById('speakerRole').innerText = role;
+      document.getElementById('speakerDetail').innerText = detail;
+
+      document.querySelectorAll('.cand-pill').forEach(el => el.classList.remove('active'));
+      if (name.includes('Taveira')) document.getElementById('pill-Taveira').classList.add('active');
+      if (name.includes('Moreira')) document.getElementById('pill-Moreira').classList.add('active');
+      if (name.includes('Miriam')) document.getElementById('pill-Miriam').classList.add('active');
+    }
+
+    // --- ANIMAÇÃO DE SORTEIO AUXILIAR ---
+    function animateRoll(elementText, pool, durationMs, onFinish) {
+      let elapsed = 0;
+      const interval = 60;
+      const rollTimer = setInterval(() => {
+        elapsed += interval;
+        const randomItem = pool[Math.floor(Math.random() * pool.length)];
+        elementText.innerText = (typeof randomItem === 'string') ? randomItem : (randomItem.tema || randomItem.texto || randomItem.id);
+        soundRollTick();
+
+        if (elapsed >= durationMs) {
+          clearInterval(rollTimer);
+          if (onFinish) onFinish();
+        }
+      }, interval);
+    }
+
+    // --- BANCO DE PERGUNTAS & MODAL ---
+    function loadQuestions() {
+      const saved = localStorage.getItem('cmc_debate_questions');
+      if (saved) {
+        try { questionsDb = JSON.parse(saved); } catch(e) { questionsDb = [...DEFAULT_QUESTIONS]; }
+      } else {
+        questionsDb = [...DEFAULT_QUESTIONS];
+      }
+      document.getElementById('modalJsonInput').value = JSON.stringify(questionsDb, null, 2);
+      document.getElementById('qCountBadge').innerText = questionsDb.length;
+    }
+
+    function openQuestionsModal() {
+      document.getElementById('questionsModal').style.display = 'flex';
+    }
+
+    function closeQuestionsModal() {
+      document.getElementById('questionsModal').style.display = 'none';
+    }
+
+    function saveQuestionsFromModal() {
+      try {
+        const val = document.getElementById('modalJsonInput').value;
+        const parsed = JSON.parse(val);
+        if (Array.isArray(parsed)) {
+          questionsDb = parsed;
+          localStorage.setItem('cmc_debate_questions', JSON.stringify(questionsDb));
+          document.getElementById('qCountBadge').innerText = questionsDb.length;
+          document.getElementById('modalSaveMsg').innerText = "✔ Salvo com sucesso!";
+          setTimeout(() => { document.getElementById('modalSaveMsg').innerText = ""; closeQuestionsModal(); }, 1200);
+        } else {
+          alert("O conteúdo deve ser uma lista (array) de perguntas.");
+        }
+      } catch(e) {
+        alert("Erro no formato JSON: Verifique aspas e vírgulas.");
+      }
+    }
+
+    function restoreDefaultQuestions() {
+      if (confirm("Restaurar perguntas originais de simulação?")) {
+        questionsDb = [...DEFAULT_QUESTIONS];
+        localStorage.removeItem('cmc_debate_questions');
+        document.getElementById('modalJsonInput').value = JSON.stringify(questionsDb, null, 2);
+        document.getElementById('qCountBadge').innerText = questionsDb.length;
+      }
+    }
+
+    // --- SÍNTESE SONORA (Web Audio API) ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function soundBeep(freq = 600, duration = 0.1, type = 'sine') {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function soundClick() { soundBeep(450, 0.05); }
+    function soundRollTick() { soundBeep(350 + Math.random() * 200, 0.04, 'triangle'); }
+    function soundFanfare() {
+      soundBeep(523, 0.12);
+      setTimeout(() => soundBeep(659, 0.12), 120);
+      setTimeout(() => soundBeep(784, 0.25), 240);
+    }
+    function soundWarning() {
+      soundBeep(880, 0.15);
+      setTimeout(() => soundBeep(880, 0.25), 200);
+    }
+    function soundTimeUp() {
+      soundBeep(330, 0.3, 'sawtooth');
+      setTimeout(() => soundBeep(260, 0.7, 'sawtooth'), 300);
+    }
+
+    // Tecla de Espaço controla o cronômetro
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (timerRunning) pauseTimer();
+        else startTimer();
+      } else if (e.key === 'r' || e.key === 'R') {
+        resetTimer();
+      }
+    });
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>

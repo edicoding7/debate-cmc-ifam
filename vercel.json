@@ -1,0 +1,11 @@
+{
+  "framework": null,
+  "buildCommand": "echo 'Static site ready'",
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/debate", "destination": "/sistema_debate_cmc.html" },
+    { "source": "/apresentacao", "destination": "/apresentacao_reuniao_debate_cmc.html" }
+  ]
+}
